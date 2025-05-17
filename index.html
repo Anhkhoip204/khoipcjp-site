@@ -1,235 +1,392 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khôi Computer - Chuyên PC Gaming & Văn Phòng</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Bán PC</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #0a0a0a;
-      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      background: #f9f9f9;
     }
-    header {
-      background: url('https://images.unsplash.com/photo-1606813902731-9b75f4f3555f?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
-      background-size: cover;
-      padding: 4rem 2rem;
+    h1 {
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
-    }
-    header h1 {
-      font-size: 3rem;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-    }
-    .hero {
-      text-align: center;
-      padding: 2rem;
-      background-color: #111;
-    }
-    .hero h2 {
-      font-size: 2rem;
       margin-bottom: 1rem;
     }
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
+    #search-bar {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
-    .hero a {
-      background-color: #ff5722;
-      color: white;
-      padding: 0.7rem 1.5rem;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .hero a:hover {
-      background-color: #e64a19;
+    .filters label {
+      cursor: pointer;
     }
-    .products {
+    #sort-select {
+      padding: 0.3rem;
+      font-size: 1rem;
+    }
+    #product-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+      grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+      gap: 1rem;
     }
     .product {
-      background: #1c1c1c;
-      border-radius: 12px;
-      padding: 1rem;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 0.5rem;
       text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .product:hover {
-      transform: scale(1.03);
-      box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     .product img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .product h3 {
-      margin: 0.5rem 0;
-      color: #ffcccb;
-    }
-    .product p {
+      max-width: 100%;
+      height: 120px;
+      object-fit: contain;
       margin-bottom: 0.5rem;
     }
-    .product button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 20px;
-      background-color: #ff5722;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    .price {
+      font-weight: bold;
+      color: #c33;
+      margin-bottom: 0.5rem;
     }
-    .product button:hover {
-      background-color: #e64a19;
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #218838;
     }
     #cart {
-      background-color: #111;
+      margin-top: 2rem;
+      background: white;
+      border: 1px solid #ddd;
       padding: 1rem;
-      position: fixed;
-      right: 0;
-      top: 0;
-      width: 300px;
-      height: 100vh;
-      overflow-y: auto;
-      color: white;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.7);
+      border-radius: 5px;
     }
     #cart h2 {
       margin-top: 0;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.5rem;
+    }
+    #cart-items {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
     }
     .cart-item {
+      display: flex;
+      gap: 1rem;
       margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
       padding-bottom: 0.5rem;
-      border-bottom: 1px dashed #888;
     }
-    .cart-item button {
+    .cart-item img {
+      width: 80px;
+      height: 60px;
+      object-fit: contain;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-info strong {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       margin-top: 0.3rem;
-      background-color: #d32f2f;
-      border: none;
-      padding: 4px 10px;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
     }
-    .cart-item button:hover {
-      background-color: #b71c1c;
+    .quantity-controls button {
+      background: #007bff;
+      padding: 0.2rem 0.6rem;
+    }
+    .quantity-controls button:hover {
+      background: #0056b3;
+    }
+    .cart-item-remove {
+      background: #dc3545;
+      padding: 0 0.6rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      line-height: 1;
+      height: 30px;
+      align-self: center;
+    }
+    .cart-item-remove:hover {
+      background: #b02a37;
+    }
+    #cart-summary {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    #cart-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+    #cart-actions button {
+      background: #ffc107;
+      color: #333;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    #cart-actions button:hover {
+      background: #e0a800;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Khôi Computer - Chuyên PC Gaming & Văn Phòng</h1>
-  </header>
+  <h1>Website Bán PC</h1>
 
-  <section class="hero">
-    <h2>Xây dựng PC theo yêu cầu</h2>
-    <p>Chọn cấu hình mạnh mẽ, giá tốt nhất thị trường</p>
-    <a href="#product-list">Xem sản phẩm</a>
+  <input type="search" id="search-bar" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm" />
+
+  <div class="filters" role="region" aria-label="Bộ lọc sản phẩm">
+    <div>
+      <strong>Lọc theo giá:</strong><br />
+      <label><input type="radio" name="price-filter" value="all" checked /> Tất cả</label>
+      <label><input type="radio" name="price-filter" value="low" /> Dưới 15,000¥</label>
+      <label><input type="radio" name="price-filter" value="mid" /> 15,000¥ - 25,000¥</label>
+      <label><input type="radio" name="price-filter" value="high" /> Trên 25,000¥</label>
+    </div>
+
+    <div>
+      <label for="sort-select"><strong>Sắp xếp:</strong></label>
+      <select id="sort-select" aria-label="Chọn cách sắp xếp sản phẩm">
+        <option value="asc">Giá tăng dần</option>
+        <option value="desc">Giá giảm dần</option>
+      </select>
+    </div>
+  </div>
+
+  <section id="product-list" aria-live="polite" aria-label="Danh sách sản phẩm">
+    <!-- Sản phẩm sẽ được render ở đây -->
   </section>
 
-  <div class="products" id="product-list"></div>
-
-  <div id="cart">
-    <h2>🛒 Giỏ Hàng</h2>
-    <div id="cart-items"></div>
-    <h3 id="total">Tổng: 0₫</h3>
-  </div>
+  <section id="cart" aria-label="Giỏ hàng">
+    <h2>Giỏ hàng (<span id="cart-count">0</span> sản phẩm)</h2>
+    <div id="cart-items" role="list">
+      <p>Giỏ hàng trống.</p>
+    </div>
+    <div id="cart-summary">Tổng: 0¥</div>
+    <div id="cart-actions">
+      <button id="clear-cart-btn" aria-label="Xoá toàn bộ giỏ hàng">Xoá giỏ hàng</button>
+      <button id="checkout-btn" aria-label="Thanh toán">Thanh toán</button>
+    </div>
+  </section>
 
   <script>
     const products = [
-      { id: 1, name: "PC Gaming i5-14600KF + RTX 3080", price: 35000000, image: "https://product.hstatic.net/200000722513/product/pc-gaming-scout-mb-df800__1__d273f2b3dc5e4b5fa9246cf9b34b7fe2_1024x1024.jpg" },
-      { id: 2, name: "PC Văn Phòng Ryzen 5 5600G", price: 12000000, image: "https://product.hstatic.net/200000722513/product/ryzen-office-1_3ba5d9f3d108471f9bb7dcf66738f830_1024x1024.jpg" },
-      { id: 3, name: "PC Streamer Intel i7 + RTX 4070", price: 45000000, image: "https://product.hstatic.net/200000722513/product/pc-gaming-streamer-anphat_9d1db98e0e914abc86d118c69a370383_1024x1024.jpg" },
-      { id: 4, name: "PC Học Tập i3 Gen 12", price: 9000000, image: "https://product.hstatic.net/200000722513/product/pc-student-basic_5fd08d2371f049a1945d053a46d44c6e_1024x1024.jpg" },
-      { id: 5, name: "PC Đồ Họa Intel Xeon + Quadro", price: 28000000, image: "https://product.hstatic.net/200000722513/product/pc-design-quadro_2b623ff47b2f42ed81c51e5aacc3b2e6_1024x1024.jpg" }
+      { id: 1, name: "PC Gaming Cấu Hình Mạnh", price: 45000, image: "https://cdn.tgdd.vn/Products/Images/42/296571/pc-van-phong-pcgaming-min-600x600.jpg" },
+      { id: 2, name: "PC Case Antec NX210", price: 13000, image: "https://cdn.tgdd.vn/Products/Images/42/295471/case-antec-nx210-1.jpg" },
+      { id: 3, name: "PC Case Cooler Master MasterBox NR200", price: 16000, image: "https://cdn.tgdd.vn/Products/Images/42/290103/case-cooler-master-masterbox-nr200-600x600.jpg" },
+      { id: 4, name: "PC Case Lian Li PC-O11 Dynamic", price: 30000, image: "https://cdn.tgdd.vn/Products/Images/42/292320/case-lian-li-pc-o11-dynamic-600x600.jpg" },
+      { id: 5, name: "PC Case Corsair iCUE 4000X RGB", price: 25000, image: "https://cdn.tgdd.vn/Products/Images/42/291780/case-corsair-icue-4000x-rgb-600x600.jpg" },
+      { id: 6, name: "PC Case NZXT H510 Elite", price: 27000, image: "https://cdn.tgdd.vn/Products/Images/42/291900/case-nzxt-h510-elite-600x600.jpg" },
+      { id: 7, name: "PC Case Phanteks Eclipse P400A", price: 14000, image: "https://cdn.tgdd.vn/Products/Images/42/292221/case-phanteks-eclipse-p400a-600x600.jpg" },
+      { id: 8, name: "PC Case Thermaltake Versa H18", price: 12000, image: "https://cdn.tgdd.vn/Products/Images/42/295210/case-thermaltake-versa-h18-600x600.jpg" }
     ];
 
-    const cart = [];
+    let cart = [];
 
+    // Elements
+    const productListEl = document.getElementById("product-list");
+    const cartItemsEl = document.getElementById("cart-items");
+    const cartCountEl = document.getElementById("cart-count");
+    const cartTotalEl = document.getElementById("cart-summary");
+    const searchBarEl = document.getElementById("search-bar");
+    const priceFilterEls = document.querySelectorAll('input[name="price-filter"]');
+    const sortSelectEl = document.getElementById("sort-select");
+    const clearCartBtn = document.getElementById("clear-cart-btn");
+    const checkoutBtn = document.getElementById("checkout-btn");
+
+    // Render products with filters and search
     function renderProducts() {
-      const productList = document.getElementById('product-list');
-      productList.innerHTML = products.map(product => `
-        <div class="product">
-          <img src="${product.image}" alt="${product.name}">
-          <h3>${product.name}</h3>
-          <p>${product.price.toLocaleString()}₫</p>
-          <button onclick="addToCart(${product.id})">Thêm vào giỏ</button>
-        </div>
-      `).join('');
+      let filtered = products;
+
+      // Search filter
+      const searchTerm = searchBarEl.value.toLowerCase().trim();
+      if (searchTerm) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
+      }
+
+      // Price filter
+      const selectedPriceFilter = document.querySelector('input[name="price-filter"]:checked').value;
+      if (selectedPriceFilter !== "all") {
+        filtered = filtered.filter(p => {
+          if (selectedPriceFilter === "low") return p.price < 15000;
+          if (selectedPriceFilter === "mid") return p.price >= 15000 && p.price <= 25000;
+          if (selectedPriceFilter === "high") return p.price > 25000;
+        });
+      }
+
+      // Sort
+      const sortMode = sortSelectEl.value;
+      if (sortMode === "asc") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortMode === "desc") {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+
+      // Render html
+      productListEl.innerHTML = filtered.map(p => `
+        <article class="product" tabindex="0" aria-label="${p.name}, giá ${p.price.toLocaleString()} yên">
+          <img src="${p.image}" alt="Hình ảnh ${p.name}" />
+          <h3>${p.name}</h3>
+          <div class="price">${p.price.toLocaleString()}¥</div>
+          <button aria-label="Thêm ${p.name} vào giỏ hàng" data-id="${p.id}">Thêm vào giỏ</button>
+        </article>
+      `).join("");
+
+      // Add button events
+      productListEl.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const id = +e.currentTarget.dataset.id;
+          addToCart(id);
+        });
+      });
     }
 
-    function renderCart() {
-      const cartItems = document.getElementById('cart-items');
-      const totalEl = document.getElementById('total');
-      let total = 0;
-      cartItems.innerHTML = cart.map(item => {
-        const product = products.find(p => p.id === item.id);
-        total += product.price * item.quantity;
-        return `
-          <div class="cart-item">
-            <strong>${product.name}</strong><br>
-            Số lượng: ${item.quantity}<br>
-            <button onclick="decreaseQuantity(${item.id})">-</button>
-            <button onclick="increaseQuantity(${item.id})">+</button>
-            <button onclick="removeFromCart(${item.id})">Xóa</button>
-          </div>
-        `;
-      }).join('');
-      totalEl.textContent = `Tổng: ${total.toLocaleString()}₫`;
-    }
-
+    // Add to cart
     function addToCart(id) {
-      const item = cart.find(i => i.id === id);
-      if (item) {
-        item.quantity++;
+      const index = cart.findIndex(item => item.id === id);
+      if (index >= 0) {
+        cart[index].quantity++;
       } else {
         cart.push({ id, quantity: 1 });
       }
       renderCart();
     }
 
-    function removeFromCart(id) {
-      const index = cart.findIndex(i => i.id === id);
-      if (index !== -1) {
-        cart.splice(index, 1);
+    // Render cart
+    function renderCart() {
+      if (cart.length === 0) {
+        cartItemsEl.innerHTML = "<p>Giỏ hàng trống.</p>";
+        cartCountEl.textContent = "0";
+        cartTotalEl.textContent = "Tổng: 0¥";
+        return;
       }
-      renderCart();
+      let total = 0;
+      cartItemsEl.innerHTML = cart.map(item => {
+        const p = products.find(prod => prod.id === item.id);
+        const itemTotal = p.price * item.quantity;
+        total += itemTotal;
+        return `
+          <div class="cart-item" role="listitem">
+            <img src="${p.image}" alt="Hình ảnh ${p.name}" />
+            <div class="cart-item-info">
+              <strong>${p.name}</strong>
+              <div>${p.price.toLocaleString()}¥ x ${item.quantity} = ${(itemTotal).toLocaleString()}¥</div>
+              <div class="quantity-controls" aria-label="Điều chỉnh số lượng ${p.name}">
+                <button aria-label="Giảm số lượng" data-id="${item.id}" data-action="decrease">-</button>
+                <span aria-live="polite" aria-atomic="true">${item.quantity}</span>
+                <button aria-label="Tăng số lượng" data-id="${item.id}" data-action="increase">+</button>
+                <button class="cart-item-remove" aria-label="Xoá sản phẩm" data-id="${item.id}">&times;</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+      cartCountEl.textContent = cart.reduce((a,b) => a + b.quantity, 0);
+      cartTotalEl.textContent = `Tổng: ${total.toLocaleString()}¥`;
+
+      // Quantity controls
+      cartItemsEl.querySelectorAll(".quantity-controls button").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const id = +e.currentTarget.dataset.id;
+          const action = e.currentTarget.dataset.action;
+          if (action === "increase") {
+            changeQuantity(id, 1);
+          } else if (action === "decrease") {
+            changeQuantity(id, -1);
+          }
+        });
+      });
+
+      // Remove item
+      cartItemsEl.querySelectorAll(".cart-item-remove").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const id = +e.currentTarget.dataset.id;
+          removeFromCart(id);
+        });
+      });
     }
 
-    function increaseQuantity(id) {
-      const item = cart.find(i => i.id === id);
-      if (item) {
-        item.quantity++;
+    // Change quantity in cart
+    function changeQuantity(id, delta) {
+      const index = cart.findIndex(item => item.id === id);
+      if (index >= 0) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
         renderCart();
       }
     }
 
-    function decreaseQuantity(id) {
-      const item = cart.find(i => i.id === id);
-      if (item && item.quantity > 1) {
-        item.quantity--;
-      } else {
-        const index = cart.findIndex(i => i.id === id);
-        if (index !== -1) cart.splice(index, 1);
-      }
+    // Remove from cart
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
       renderCart();
     }
 
+    // Clear cart
+    clearCartBtn.addEventListener("click", () => {
+      if (confirm("Bạn có chắc muốn xoá toàn bộ giỏ hàng không?")) {
+        cart = [];
+        renderCart();
+      }
+    });
+
+    // Checkout (simple alert)
+    checkoutBtn.addEventListener("click", () => {
+      if (cart.length === 0) {
+        alert("Giỏ hàng đang trống!");
+        return;
+      }
+      let orderDetails = cart.map(item => {
+        const p = products.find(prod => prod.id === item.id);
+        return `${p.name} x${item.quantity}`;
+      }).join("\n");
+      alert(`Cảm ơn bạn đã đặt hàng:\n${orderDetails}\n${cartTotalEl.textContent}`);
+      cart = [];
+      renderCart();
+    });
+
+    // Search bar event
+    searchBarEl.addEventListener("input", renderProducts);
+
+    // Price filter event
+    priceFilterEls.forEach(radio => {
+      radio.addEventListener("change", renderProducts);
+    });
+
+    // Sort select event
+    sortSelectEl.addEventListener("change", renderProducts);
+
+    // Initial render
     renderProducts();
     renderCart();
   </script>
