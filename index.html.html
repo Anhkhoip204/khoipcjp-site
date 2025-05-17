@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Khôi PC JP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #ff4500;
+      --bg-dark: #121212;
+      --bg-light: #f5f5f5;
+      --text-dark: #121212;
+      --text-light: #fff;
+      --card-bg-dark: #2a2a2a;
+      --card-bg-light: #fff;
+      --input-bg-dark: #1f1f1f;
+      --input-bg-light: #eee;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light-mode {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background-color: var(--card-bg-dark);
+      padding: 20px 30px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    body.light-mode header {
+      background-color: var(--card-bg-light);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    .toggle-mode {
+      cursor: pointer;
+      background: none;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-weight: 700;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .toggle-mode:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product {
+      background-color: var(--card-bg-dark);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    body.light-mode .product {
+      background-color: var(--card-bg-light);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(255,69,0,0.4);
+    }
+
+    .product img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .product h3 {
+      margin: 10px 0 8px;
+      font-size: 1.25rem;
+    }
+
+    .product p {
+      margin: 6px 0;
+      font-size: 1rem;
+    }
+
+    .buy-button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 15px;
+      box-shadow: 0 4px 15px rgba(255,69,0,0.6);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .buy-button:hover {
+      background-color: #e03e00;
+      box-shadow: 0 6px 20px rgba(255,69,0,0.8);
+    }
+
+    .cart {
+      background-color: var(--card-bg-dark);
+      border-radius: 15px;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 25px 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light-mode .cart {
+      background-color: var(--card-bg-light);
+      color: var(--text-dark);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .cart h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .cart p {
+      font-size: 1.1rem;
+      margin: 6px 0;
+    }
+
+    .order-form, .contact {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: var(--card-bg-dark);
+      border-radius: 15px;
+      padding: 30px 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light-mode .order-form, body.light-mode .contact {
+      background-color: var(--card-bg-light);
+      color: var(--text-dark);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .order-form h2, .contact h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, select {
+      padding: 12px 15px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1rem;
+      background-color: var(--input-bg-dark);
+      color: var(--text-light);
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+      transition: background-color 0.3s, color 0.3s;
+      outline-offset: 2px;
+      outline-color: var(--primary-color);
+    }
+
+    body.light-mode input, body.light-mode select {
+      background-color: var(--input-bg-light);
+      color: var(--text-dark);
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    input::placeholder, select::placeholder {
+      color: #bbb;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid var(--primary-color);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary-color);
+      border-radius: 30px;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255,69,0,0.7);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #e03e00;
+      box-shadow: 0 8px 25px rgba(255,69,0,0.9);
+    }
+
+    .contact p {
+      font-size: 1.1rem;
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px 10px;
+      background-color: var(--card-bg-dark);
+      color: var(--text-light);
+      font-size: 0.9rem;
+      box-shadow: inset 0 1px 5px rgba(0,0,0,0.4);
+      margin-top: 60px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light-mode footer {
+      background-color: var(--card-bg-light);
+      color: var(--text-dark);
+      box-shadow: inset 0 1px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Responsive */
+    @media(max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .product-grid {
+        padding: 15px;
+        gap: 15px;
+      }
+      .cart, .order-form, .contact {
+        margin: 20px 10px;
+        padding: 20px;
+      }
+      input, select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Khôi PC JP</h1>
+    <button class="toggle-mode" id="toggleModeBtn" aria-label="Chuyển đổi chế độ sáng/tối">🌙 Dark/Light</button>
+  </header>
+
+  <section class="product-grid" aria-label="Danh sách sản phẩm">
+    <article class="product" tabindex="0">
+      <img src="https://via.placeholder.com/300x200" alt="PC Gaming RTX 3080" />
+      <h3>PC Gaming RTX 3080</h3>
+      <p>i7-12700K, 32GB RAM, 1TB SSD</p>
+      <p><strong>Giá: 350,000円</strong></p>
+      <button class="buy-button" onclick="addToCart('PC Gaming RTX 3080', 350000)">Thêm vào giỏ</button>
+    </article>
+    <article class="product" tabindex="0">
+      <img src="https://via.placeholder.com/300x200" alt="PC Văn Phòng" />
+      <h3>PC Văn Phòng</h3>
+      <p>i5-12400, 16GB RAM, 512GB SSD</p>
+      <p><strong>Giá: 150,000円</strong></p>
+      <button class="buy-button" onclick="addToCart('PC Văn Phòng', 150000)">Thêm vào giỏ</button>
+    </article>
+    <article class="product" tabindex="0">
+      <img src="https://via.placeholder.com/300x200" alt="PC Streaming" />
+      <h3>PC Streaming</h3>
+      <p>Ryzen 7 5800X, RTX 4070, 32GB RAM</p>
+      <p><strong>Giá: 400,000円</strong></p>
+      <button class="buy-button" onclick="addToCart('PC Streaming', 400000)">Thêm vào giỏ</button>
+    </article>
+  </section>
+
+  <section id="cart" class="cart" aria-live="polite">
+    <h2>Giỏ hàng</h2>
+    <p>Chưa có sản phẩm nào.</p>
+  </section>
+
+  <section class="order-form" aria-label="Form đặt hàng">
+    <h2>Đặt hàng</h2>
+    <form id="orderForm" action="https://example-payment.jp/checkout" method="POST">
+      <input type="text" name="name" placeholder="Họ tên" required aria-required="true" />
+      <input type="email" name="email" placeholder="Email" required aria-required="true" />
+      <input type="text" name="address" placeholder="Địa chỉ nhận hàng tại Nhật" required aria-required="true" />
+      <select name="payment" required aria-required="true">
+        <option value="" disabled selected>Chọn phương thức thanh toán</option>
+        <option value="visa">Visa Debit/Yucho</option>
+        <option value="konbini">Thanh toán tại コンビニ</option>
+        <option value="paypal">Thanh toán qua PayPal</option>
+        <option value="bank">Chuyển khoản ngân hàng</option>
+        <option value="cod">Thanh toán khi nhận hàng</option>
+      </select>
+      <input type="hidden" name="order_details" id="orderDetails" />
+      <button type="submit">Gửi đơn hàng</button>
+    </form>
+  </section>
+
+  <section class="contact" aria-label="Thông tin liên hệ">
+    <h2>Liên hệ</h2>
+    <p>Email: <a href="mailto:khoip777@gmail.com" style="color: var(--primary-color);">khoip777@gmail.com</a></p>
+    <p>Điện thoại (JP): <a href="tel:+817084180868" style="color: var(--primary-color);">070-8418-0868</a></p>
+  </section>
+
+  <footer>
+    &copy; 2025 Khôi PC JP. All rights reserved.
+  </footer>
+
+  <script>
+    const cart = [];
+
+    function addToCart(productName, price) {
+      cart.push({ name: productName, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartDiv = document.getElementById('cart');
+      if(cart.length === 0) {
+        cartDiv.innerHTML = '<h2>Giỏ hàng</h2><p>Chưa có sản phẩm nào.</p>';
+        return;
+      }
+      let total = 0;
+      let html = '<h2>Giỏ hàng</h2><ul style="list-style:none; padding-left:0;">';
+      cart.forEach((item, index) => {
+        html += `<li>${item.name} - ${
