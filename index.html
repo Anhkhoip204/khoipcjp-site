@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Khôi PC JP</title>
+  <title>Khôi PC JP - Nâng cấp</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
       --primary-color: #ff4500;
@@ -18,20 +18,18 @@
       --input-bg-dark: #1f1f1f;
       --input-bg-light: #eee;
     }
-
     body {
       font-family: 'Roboto', Arial, sans-serif;
       margin: 0;
       background-color: var(--bg-dark);
       color: var(--text-light);
       transition: background-color 0.3s, color 0.3s;
+      line-height: 1.6;
     }
-
     body.light-mode {
       background-color: var(--bg-light);
       color: var(--text-dark);
     }
-
     header {
       position: sticky;
       top: 0;
@@ -44,75 +42,84 @@
       align-items: center;
       flex-wrap: wrap;
     }
-
     nav {
       display: flex;
       gap: 20px;
     }
-
     nav a {
       color: var(--text-light);
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
     }
-
     nav a:hover {
       color: var(--primary-color);
     }
-
+    .toggle-mode {
+      background: none;
+      border: 2px solid var(--primary-color);
+      border-radius: 20px;
+      color: var(--primary-color);
+      font-weight: 700;
+      cursor: pointer;
+      padding: 6px 12px;
+      transition: all 0.3s ease;
+    }
+    .toggle-mode:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
     .banner {
-      background-image: url('https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1200&q=80');
+      background-image: url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=80');
       background-size: cover;
       background-position: center;
-      padding: 80px 20px;
+      padding: 100px 20px;
       text-align: center;
       color: white;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+      font-weight: 700;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
     }
-
     .banner h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin: 0;
-      color: #fff;
     }
-
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 25px;
-      padding: 30px;
+      padding: 40px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
-
     .product {
       background-color: var(--card-bg-dark);
       border-radius: 15px;
       padding: 20px;
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
-
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(255, 69, 0, 0.7);
+    }
     .product img {
       max-width: 100%;
       height: 180px;
       object-fit: cover;
       border-radius: 12px;
       margin-bottom: 15px;
+      user-select: none;
     }
-
     .product h3 {
       margin: 10px 0 8px;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
     }
-
     .product p {
       margin: 6px 0;
       font-size: 1rem;
     }
-
     .buy-button {
       background-color: var(--primary-color);
       color: white;
@@ -125,140 +132,61 @@
       margin-top: 15px;
       box-shadow: 0 4px 15px rgba(255,69,0,0.6);
       transition: background-color 0.3s, box-shadow 0.3s;
+      user-select: none;
     }
-
     .buy-button:hover {
       background-color: #e03e00;
       box-shadow: 0 6px 20px rgba(255,69,0,0.8);
     }
-
-    #cart ul {
-      padding-left: 0;
-      list-style: none;
+    #cart {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: var(--card-bg-dark);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: var(--text-light);
     }
-
-    #cart li {
-      margin-bottom: 10px;
+    #cart.light-mode {
+      background-color: var(--card-bg-light);
+      color: var(--text-dark);
     }
-
-    .rating {
-      color: gold;
-      margin-top: 8px;
+    #cart h2 {
+      margin-top: 0;
+      text-align: center;
     }
-
-    .product-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
+    #cart table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
     }
-
-    .product-controls button {
-      padding: 5px 10px;
-      font-size: 1rem;
+    #cart th, #cart td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
     }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Khôi PC JP</h1>
-    <nav>
-      <a href="#">Trang chủ</a>
-      <a href="#products">Sản phẩm</a>
-      <a href="#cart">Giỏ hàng</a>
-      <a href="#contact">Liên hệ</a>
-    </nav>
-    <button class="toggle-mode" onclick="toggleMode()">🌙 Dark/Light</button>
-  </header>
-
-  <section class="banner">
-    <h2>Chào mừng đến với Khôi PC JP</h2>
-  </section>
-
-  <section class="product-grid" id="products">
-    <article class="product">
-      <img src="https://via.placeholder.com/300x200" alt="PC Gaming RTX 3080" />
-      <h3>PC Gaming RTX 3080</h3>
-      <p>i7-12700K, 32GB RAM, 1TB SSD</p>
-      <p><strong>Giá: 350,000円</strong></p>
-      <div class="rating">
-        ★★★★☆
-      </div>
-      <button class="buy-button" onclick="addToCart('PC Gaming RTX 3080', 350000)">Thêm vào giỏ</button>
-    </article>
-    <!-- Thêm sản phẩm khác tương tự -->
-  </section>
-
-  <section id="cart">
-    <h2>Giỏ hàng</h2>
-    <ul id="cartItems">
-      <li>Chưa có sản phẩm nào.</li>
-    </ul>
-    <p id="cartTotal"></p>
-  </section>
-
-  <section id="contact">
-    <h2>Liên hệ</h2>
-    <p>Email: <a href="mailto:khoip777@gmail.com">khoip777@gmail.com</a></p>
-    <p>Điện thoại: <a href="tel:+817084180868">070-8418-0868</a></p>
-  </section>
-
-  <footer>
-    &copy; 2025 Khôi PC JP. All rights reserved.
-  </footer>
-
-  <script>
-    let cart = [];
-
-    function addToCart(name, price) {
-      const found = cart.find(item => item.name === name);
-      if (found) {
-        found.qty += 1;
-      } else {
-        cart.push({ name, price, qty: 1 });
-      }
-      updateCart();
+    #cart th {
+      background-color: var(--primary-color);
+      color: white;
     }
-
-    function updateCart() {
-      const cartItems = document.getElementById('cartItems');
-      const cartTotal = document.getElementById('cartTotal');
-      if (cart.length === 0) {
-        cartItems.innerHTML = '<li>Chưa có sản phẩm nào.</li>';
-        cartTotal.textContent = '';
-        return;
-      }
-      let total = 0;
-      cartItems.innerHTML = '';
-      cart.forEach((item, i) => {
-        total += item.price * item.qty;
-        cartItems.innerHTML += `<li>
-          ${item.name} - ${item.qty} x ${item.price.toLocaleString()}円
-          <button onclick="changeQty(${i}, 1)">+</button>
-          <button onclick="changeQty(${i}, -1)">-</button>
-          <button onclick="removeItem(${i})">Xóa</button>
-        </li>`;
-      });
-      cartTotal.textContent = `Tổng: ${total.toLocaleString()}円`;
+    #cart td button {
+      margin: 0 5px;
+      padding: 5px 12px;
+      border: none;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-
-    function changeQty(index, delta) {
-      cart[index].qty += delta;
-      if (cart[index].qty <= 0) {
-        cart.splice(index, 1);
-      }
-      updateCart();
+    #cart td button:hover {
+      background-color: #e03e00;
     }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      updateCart();
+    #cartTotal {
+      text-align: right;
+      font-weight: 700;
+      margin-top: 15px;
+      font-size: 1.2rem;
     }
-
-    function toggleMode() {
-      document.body.classList.toggle('light-mode');
-    }
-  </script>
-</body>
-</html>
+    #contact {
+      max-width: 1200px;
