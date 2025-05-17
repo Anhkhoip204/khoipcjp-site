@@ -152,6 +152,8 @@
           <div class="cart-item">
             <strong>${product.name}</strong><br>
             Số lượng: ${item.quantity}<br>
+            <button onclick="decreaseQuantity(${item.id})">-</button>
+            <button onclick="increaseQuantity(${item.id})">+</button>
             <button onclick="removeFromCart(${item.id})">Xóa</button>
           </div>
         `;
@@ -173,6 +175,25 @@
       const index = cart.findIndex(i => i.id === id);
       if (index !== -1) {
         cart.splice(index, 1);
+      }
+      renderCart();
+    }
+
+    function increaseQuantity(id) {
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.quantity++;
+        renderCart();
+      }
+    }
+
+    function decreaseQuantity(id) {
+      const item = cart.find(i => i.id === id);
+      if (item && item.quantity > 1) {
+        item.quantity--;
+      } else {
+        const index = cart.findIndex(i => i.id === id);
+        if (index !== -1) cart.splice(index, 1);
       }
       renderCart();
     }
