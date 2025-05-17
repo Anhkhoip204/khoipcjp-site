@@ -3,265 +3,506 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Khôi Computer - Cửa hàng linh kiện PC đa dạng</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Cửa hàng PC Gaming</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    /* CSS cơ bản cho trang */
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #121212;
+      background-color: #121212;
       color: #eee;
       display: flex;
-      min-height: 100vh;
-      flex-direction: column;
+      flex-direction: row;
+      height: 100vh;
+      overflow: hidden;
     }
-    header {
-      background: #ff5722;
-      padding: 1rem 2rem;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.8rem;
-      letter-spacing: 1px;
-      color: #fff;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-    }
-    main {
-      flex: 1;
-      display: flex;
-      gap: 1rem;
-      padding: 1rem 2rem;
-      background: #181818;
-    }
-    /* Sidebar lọc */
     .sidebar {
-      width: 250px;
-      background: #222;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #000;
-      height: fit-content;
-      position: sticky;
-      top: 1rem;
-      align-self: flex-start;
+      width: 280px;
+      background-color: #1e1e1e;
+      padding: 10px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      border-right: 1px solid #333;
     }
-    .sidebar h3 {
-      margin-bottom: 1rem;
-      border-bottom: 2px solid #ff5722;
-      padding-bottom: 0.5rem;
-      font-weight: 700;
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
     }
-    .filter-group {
-      margin-bottom: 1.2rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.4rem;
+    .tab {
+      background-color: #2a2a2a;
+      padding: 8px 12px;
+      border-radius: 4px;
       cursor: pointer;
+      user-select: none;
+      color: #ccc;
+      transition: background-color 0.3s, color 0.3s;
     }
-    input[type=checkbox],
-    input[type=radio] {
-      margin-right: 0.5rem;
-      cursor: pointer;
+    .tab.active {
+      background-color: #ff6f61;
+      color: #fff;
     }
-    /* Products grid */
+    #product-section {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #181818;
+    }
     .products {
-      flex: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap: 20px;
     }
     .product {
-      background: #282828;
-      border-radius: 10px;
-      padding: 1rem;
+      background-color: #252525;
+      border-radius: 8px;
+      padding: 12px;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s, box-shadow 0.3s;
+      justify-content: space-between;
+      transition: transform 0.2s;
     }
     .product:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 15px #ff5722;
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(255,111,97,0.4);
     }
     .product img {
       width: 100%;
-      height: 160px;
+      height: 130px;
       object-fit: contain;
-      margin-bottom: 0.8rem;
-      border-radius: 8px;
-      background: #111;
-      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      background-color: #111;
     }
-    .product h4 {
-      margin: 0 0 0.4rem 0;
-      color: #ffb997;
-      font-weight: 700;
+    .product h3 {
+      margin: 0 0 6px 0;
       font-size: 1.1rem;
+      color: #fff;
     }
-    .product .brand {
-      font-size: 0.9rem;
-      color: #ccc;
-      margin-bottom: 0.3rem;
+    .product .description {
+      font-size: 0.85rem;
+      color: #aaa;
+      flex-grow: 1;
+      margin-bottom: 10px;
     }
     .product .price {
-      font-weight: 700;
-      color: #ff5722;
-      margin-bottom: 0.8rem;
-      font-size: 1.1rem;
+      font-weight: bold;
+      color: #ff6f61;
+      margin-bottom: 10px;
+      font-size: 1rem;
     }
     .product button {
-      margin-top: auto;
-      padding: 0.5rem 1rem;
+      background-color: #ff6f61;
       border: none;
-      background: #ff5722;
-      color: white;
-      border-radius: 25px;
+      color: #fff;
+      padding: 8px;
+      border-radius: 4px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: bold;
       transition: background-color 0.3s;
     }
     .product button:hover {
-      background: #e64a19;
+      background-color: #e55b50;
     }
-    /* Giỏ hàng */
-    #cart {
-      position: fixed;
-      right: 0;
-      top: 0;
-      width: 320px;
-      height: 100vh;
-      background: #222;
-      box-shadow: -4px 0 10px rgba(0,0,0,0.7);
-      padding: 1rem;
-      color: white;
+    .cart {
+      width: 300px;
+      background-color: #1e1e1e;
+      border-left: 1px solid #333;
+      padding: 15px;
+      box-sizing: border-box;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      z-index: 999;
     }
-    #cart h2 {
-      border-bottom: 2px solid #ff5722;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .cart h2 {
+      margin: 0 0 15px 0;
+      font-size: 1.3rem;
+      color: #ff6f61;
+      text-align: center;
+    }
+    #cart-items {
+      flex-grow: 1;
+      overflow-y: auto;
     }
     .cart-item {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.6rem;
-    }
-    .cart-item img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
+      background-color: #252525;
+      margin-bottom: 12px;
+      padding: 8px;
       border-radius: 6px;
-      background: #111;
-      padding: 5px;
     }
     .cart-item-info {
-      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1;
+      overflow: hidden;
     }
-    .cart-item-info strong {
+    .cart-item-info img {
+      width: 60px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 4px;
+      background-color: #111;
+    }
+    .cart-item-details {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+    .cart-item-details strong {
       display: block;
-      margin-bottom: 0.3rem;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .cart-item-info small {
-      color: #ccc;
-      display: block;
-      margin-bottom: 0.3rem;
+    .cart-item-details small {
+      color: #aaa;
+      font-size: 0.8rem;
     }
-    .cart-actions button {
-      background: #d32f2f;
+    .cart-item-controls {
+      display: flex;
+      gap: 5px;
+    }
+    .cart-item-controls button {
+      background-color: #ff6f61;
       border: none;
       color: white;
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 5px 8px;
+      border-radius: 4px;
       cursor: pointer;
-      margin-right: 4px;
-      font-weight: 600;
+      font-weight: bold;
+      font-size: 0.9rem;
       transition: background-color 0.3s;
     }
-    .cart-actions button:hover {
-      background: #b71c1c;
+    .cart-item-controls button:hover {
+      background-color: #e55b50;
     }
     #total {
-      margin-top: auto;
-      font-weight: 700;
-      font-size: 1.2rem;
-      border-top: 2px solid #ff5722;
-      padding-top: 1rem;
-    }
-    #checkout {
-      margin-top: 1rem;
-      background: #4caf50;
-      border: none;
-      padding: 0.7rem;
-      color: white;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
+      font-weight: bold;
       font-size: 1.1rem;
+      margin: 15px 0;
+      color: #ff6f61;
+      text-align: center;
+    }
+    #checkout-btn {
+      background-color: #ff6f61;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
       transition: background-color 0.3s;
-      width: 100%;
     }
-    #checkout:hover {
-      background: #388e3c;
+    #checkout-btn:hover {
+      background-color: #e55b50;
     }
-    /* Responsive */
-    @media(max-width: 900px) {
-      main {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        position: relative;
-        top: auto;
-        margin-bottom: 1rem;
-      }
-      #cart {
-        position: relative;
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-        margin-top: 1rem;
-      }
+    /* Scrollbar styles */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #ff6f61;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <header>Khôi Computer - Linh kiện PC đa dạng, giá tốt</header>
+  <div class="sidebar">
+    <div class="tabs">
+      <div class="tab active" data-category="pc">PC Hoàn Chỉnh</div>
+      <div class="tab" data-category="cpu">CPU</div>
+      <div class="tab" data-category="mainboard">Mainboard</div>
+      <div class="tab" data-category="ram">RAM</div>
+      <div class="tab" data-category="ssd">SSD</div>
+      <div class="tab" data-category="vga">VGA</div>
+      <div class="tab" data-category="case">Case</div>
+      <div class="tab" data-category="psu">PSU</div>
+      <div class="tab" data-category="cooling">Tản Nhiệt</div>
+    </div>
+    <div id="product-section"></div>
+  </div>
+  <div class="cart">
+    <h2>Giỏ hàng</h2>
+    <div id="cart-items"><p>Giỏ hàng trống</p></div>
+    <div id="total">Tổng: 0₫</div>
+    <button id="checkout-btn" onclick="checkout()">Thanh toán</button>
+  </div>
 
-  <main>
-    <aside class="sidebar">
-      <h3>Lọc sản phẩm</h3>
+  <script>
+    const productsData = {
+      pc: [
+        {
+          id: 1,
+          name: "PC Gaming ROG Ryzen 5 7600X",
+          price: 29000000,
+          image:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/AMD_Ryzen_5_7600X.png/220px-AMD_Ryzen_5_7600X.png",
+          description:
+            "CPU AMD Zen4, 6 nhân 12 luồng, hiệu năng cao và tiết kiệm điện.",
+        },
+        {
+          id: 2,
+          name: "PC Gaming Intel Core i7-13700K",
+          price: 35000000,
+          image:
+            "https://intel-product-images.s3.amazonaws.com/i7-13700k.png",
+          description:
+            "CPU Intel thế hệ 13, 16 nhân, hiệu năng cực mạnh, đa nhiệm tốt.",
+        },
+      ],
+      cpu: [
+        {
+          id: 101,
+          name: "AMD Ryzen 5 7600X",
+          price: 7500000,
+          image:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/AMD_Ryzen_5_7600X.png/220px-AMD_Ryzen_5_7600X.png",
+          description:
+            "CPU AMD Zen4, 6 nhân 12 luồng, hiệu năng cao và tiết kiệm điện.",
+        },
+        {
+          id: 103,
+          name: "Intel Core i7-13700K",
+          price: 12000000,
+          image:
+            "https://intel-product-images.s3.amazonaws.com/i7-13700k.png",
+          description:
+            "CPU Intel thế hệ 13, 16 nhân, hiệu năng cực mạnh, đa nhiệm tốt.",
+        },
+      ],
+      mainboard: [
+        {
+          id: 201,
+          name: "Mainboard ASUS ROG Z790",
+          price: 6800000,
+          image:
+            "https://dlcdnimgs.asus.com/websites/global/products/gtdklZtUQeBQYSps/P_setting_xxx_0_90_end_600.png",
+          description: "Mainboard Z790 cho Intel thế hệ 13, hỗ trợ DDR5, PCIe 5.0.",
+        },
+        {
+          id: 202,
+          name: "Mainboard MSI B550 Gaming Plus",
+          price: 3500000,
+          image:
+            "https://www.msi.com/public/picture/mb/B550_GAMING_PLUS_400.png",
+          description: "Mainboard B550 cho AMD Ryzen, hỗ trợ PCIe 4.0, RGB.",
+        },
+      ],
+      ram: [
+        {
+          id: 301,
+          name: "Corsair Vengeance 16GB DDR4 3200MHz",
+          price: 1500000,
+          image:
+            "https://m.media-amazon.com/images/I/81-+Rz6kgdL._AC_SL1500_.jpg",
+          description:
+            "RAM DDR4 dung lượng 16GB, tốc độ 3200MHz, hiệu năng ổn định.",
+        },
+        {
+          id: 302,
+          name: "G.Skill Trident Z RGB 32GB DDR4 3600MHz",
+          price: 3200000,
+          image:
+            "https://gskill.com/media/2020/10/Trident-Z-RGB-32GB-3600MHz.png",
+          description:
+            "RAM DDR4 32GB, bus cao 3600MHz, thiết kế đẹp có đèn RGB.",
+        },
+      ],
+      ssd: [
+        {
+          id: 401,
+          name: "Samsung 970 EVO Plus 1TB",
+          price: 2600000,
+          image:
+            "https://images.samsung.com/is/image/samsung/p6pim/vn/ssd-970-evo-plus-1tb-mz-v7s1t0b-am-fullview-278368232?$PD_GALLERY_L_JPG$",
+          description:
+            "Ổ cứng SSD M.2 NVMe 1TB tốc độ đọc ghi cao, bền bỉ.",
+        },
+        {
+          id: 402,
+          name: "Western Digital Blue 500GB",
+          price: 1100000,
+          image:
+            "https://shop.westerndigital.com/sites/default/files/blue-500gb.png",
+          description: "SSD SATA 500GB, phù hợp nâng cấp máy tính nhanh.",
+        },
+      ],
+      vga: [
+        {
+          id: 501,
+          name: "NVIDIA GeForce RTX 3080 TUF",
+          price: 20000000,
+          image:
+            "https://dlcdnimgs.asus.com/websites/global/products/CKrjo0bJ3NAKd6m3/P_setting_xxx_0_90_end_600.png",
+          description:
+            "Card màn hình RTX 3080, chơi game 4K mượt mà, hiệu năng cao.",
+        },
+        {
+          id: 502,
+          name: "AMD Radeon RX 6800 XT",
+          price: 17000000,
+          image:
+            "https://images.amd.com/sg/media-assets/graphics/desktop-gpus/radeon-rx-6800-xt/6800xt-graphics-card-2.jpg",
+          description:
+            "Card AMD RX 6800 XT, hiệu năng cao, giá tốt cho game thủ.",
+        },
+      ],
+      case: [
+        {
+          id: 601,
+          name: "Antec C3 ARGB White",
+          price: 1800000,
+          image:
+            "https://cdn.tgdd.vn/Products/Images/42/260109/antec-c3-argb-white-1-600x600.jpg",
+          description: "Vỏ case màu trắng, có đèn ARGB, thiết kế đẹp mắt.",
+        },
+        {
+          id: 602,
+          name: "NZXT H510 Black",
+          price: 2500000,
+          image:
+            "https://nzxt.com/assets/cms/34245/1638545072-image.jpg?auto=format&fit=max&w=1200",
+          description:
+            "Case NZXT H510, màu đen, thiết kế tối giản, dễ lắp ráp.",
+        },
+      ],
+      psu: [
+        {
+          id: 701,
+          name: "Corsair RM750x 750W",
+          price: 2100000,
+          image:
+            "https://www.corsair.com/corsairmedia/sys_master/productcontent/CFM2_RM750X_black_front.png",
+          description:
+            "Nguồn Corsair 750W, hiệu suất cao, hoạt động ổn định.",
+        },
+        {
+          id: 702,
+          name: "Seasonic Focus GX-650",
+          price: 1900000,
+          image:
+            "https://seasonic.com/sites/default/files/product-images/focus-gx-650_0.png",
+          description:
+            "Nguồn Seasonic 650W, hiệu suất 80+ Gold, bền bỉ lâu dài.",
+        },
+      ],
+      cooling: [
+        {
+          id: 801,
+          name: "Cooler Master Hyper 212",
+          price: 700000,
+          image:
+            "https://cdn.coolermaster.com/media/wysiwyg/product_cms/Hyper-212-Black-Edition/Hyper-212-Black-Edition-400x400.png",
+          description:
+            "Tản nhiệt khí hiệu quả, giá hợp lý, lắp dễ dàng.",
+        },
+        {
+          id: 802,
+          name: "NZXT Kraken X63",
+          price: 3500000,
+          image:
+            "https://nzxt.com/assets/cms/34245/kraken-x63_2.png",
+          description:
+            "Tản nhiệt nước All-in-One, hiệu năng làm mát tốt, đẹp mắt.",
+        },
+      ],
+    };
 
-      <div class="filter-group">
-        <strong>Loại sản phẩm</strong><br />
-        <label><input type="checkbox" class="filter-type" value="CPU" /> CPU</label>
-        <label><input type="checkbox" class="filter-type" value="GPU" /> GPU</label>
-        <label><input type="checkbox" class="filter-type" value="RAM" /> RAM</label>
-        <label><input type="checkbox" class="filter-type" value="Mainboard" /> Mainboard</label>
-        <label><input type="checkbox" class="filter-type" value="Case" /> Case</label>
-      </div>
+    const productSection = document.getElementById("product-section");
+    const tabs = document.querySelectorAll(".tab");
 
-      <div class="filter-group">
-        <strong>Hãng</strong><br />
-        <label><input type="checkbox" class="filter-brand" value="Intel" /> Intel</label>
-        <label><input type="checkbox" class="filter-brand" value="AMD" /> AMD</label>
-        <label><input type="checkbox" class="filter-brand" value="NVIDIA" /> NVIDIA</label>
-        <label><input type="checkbox" class="filter-brand" value="Corsair" /> Corsair</label>
-        <label><input type="checkbox" class="filter-brand" value="ASUS" /> ASUS</label>
-        <label><input type="checkbox" class="filter-brand" value="Cooler Master" /> Cooler Master</label>
-      </div>
+    function formatPrice(price) {
+      return price.toLocaleString("vi-VN") + "₫";
+    }
 
-      <div class="filter-group">
-        <strong>Giá</strong><br />
-        <label><input type="radio" name="price" class="filter-price" value="0-10000000" /> D
+    function showProducts(category) {
+      productSection.innerHTML = "";
+      const products = productsData[category];
+      if (!products) return;
+
+      const container = document.createElement("div");
+      container.className = "products";
+
+      products.forEach((p) => {
+        const prodDiv = document.createElement("div");
+        prodDiv.className = "product";
+
+        prodDiv.innerHTML = `
+          <img src="${p.image}" alt="${p.name}" />
+          <h3>${p.name}</h3>
+          <p class="description">${p.description}</p>
+          <p class="price">${formatPrice(p.price)}</p>
+          <button onclick="addToCart(${p.id}, '${category}')">
+            Thêm vào giỏ
+          </button>
+        `;
+        container.appendChild(prodDiv);
+      });
+
+      productSection.appendChild(container);
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        showProducts(tab.getAttribute("data-category"));
+      });
+    });
+
+    showProducts("pc");
+
+    let cart = [];
+
+    function addToCart(id, category) {
+      const product = productsData[category].find((p) => p.id === id);
+      if (!product) return;
+      const cartItem = cart.find((item) => item.id === id && item.category === category);
+      if (cartItem) {
+        cartItem.quantity++;
+      } else {
+        cart.push({ ...product, category, quantity: 1 });
+      }
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartItemsContainer = document.getElementById("cart-items");
+      cartItemsContainer.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = "<p>Giỏ hàng trống</p>";
+      }
+
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "cart-item";
+        itemDiv.innerHTML = `
+          <div class="cart-item-info">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="cart-item-details">
+              <strong>${item.name}</strong>
+              <small>${formatPrice(item.price)} x ${item.quantity}</small>
+            </div>
+          </div>
+          <div class="cart-item-controls">
+            <button onclick="decreaseQty(${index})">-</button>
+            <button onclick="increaseQty(${index})">+</button>
+            <button onclick="removeFromCart(${index})">Xóa</button>
+          </div>
+        `;
+        cartItemsContainer.appendChild(itemDiv
