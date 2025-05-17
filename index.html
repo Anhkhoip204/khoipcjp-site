@@ -368,3 +368,113 @@
       let html = '<h2>Giỏ hàng</h2><ul style="list-style:none; padding-left:0;">';
       cart.forEach((item, index) => {
         html += `<li>${item.name} - ${
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Khôi PC JP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* CSS giữ nguyên như bạn đã viết ở trên – rất đẹp và đầy đủ nên mình không thay đổi gì */
+    /* --- Bỏ qua phần CSS ở đây để tiết kiệm không gian hiển thị --- */
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Khôi PC JP</h1>
+    <button class="toggle-mode" id="toggleModeBtn" aria-label="Chuyển đổi chế độ sáng/tối">🌙 Dark/Light</button>
+  </header>
+
+  <section class="product-grid" aria-label="Danh sách sản phẩm">
+    <article class="product" tabindex="0">
+      <img src="https://via.placeholder.com/300x200" alt="PC Gaming RTX 3080" />
+      <h3>PC Gaming RTX 3080</h3>
+      <p>i7-12700K, 32GB RAM, 1TB SSD</p>
+      <p><strong>Giá: 350,000円</strong></p>
+      <button class="buy-button" onclick="addToCart('PC Gaming RTX 3080', 350000)">Thêm vào giỏ</button>
+    </article>
+    <article class="product" tabindex="0">
+      <img src="https://via.placeholder.com/300x200" alt="PC Văn Phòng" />
+      <h3>PC Văn Phòng</h3>
+      <p>i5-12400, 16GB RAM, 512GB SSD</p>
+      <p><strong>Giá: 150,000円</strong></p>
+      <button class="buy-button" onclick="addToCart('PC Văn Phòng', 150000)">Thêm vào giỏ</button>
+    </article>
+    <article class="product" tabindex="0">
+      <img src="https://via.placeholder.com/300x200" alt="PC Streaming" />
+      <h3>PC Streaming</h3>
+      <p>Ryzen 7 5800X, RTX 4070, 32GB RAM</p>
+      <p><strong>Giá: 400,000円</strong></p>
+      <button class="buy-button" onclick="addToCart('PC Streaming', 400000)">Thêm vào giỏ</button>
+    </article>
+  </section>
+
+  <section id="cart" class="cart" aria-live="polite">
+    <h2>Giỏ hàng</h2>
+    <p>Chưa có sản phẩm nào.</p>
+  </section>
+
+  <section class="order-form" aria-label="Form đặt hàng">
+    <h2>Đặt hàng</h2>
+    <form id="orderForm" action="https://example-payment.jp/checkout" method="POST">
+      <input type="text" name="name" placeholder="Họ tên" required aria-required="true" />
+      <input type="email" name="email" placeholder="Email" required aria-required="true" />
+      <input type="text" name="address" placeholder="Địa chỉ nhận hàng tại Nhật" required aria-required="true" />
+      <select name="payment" required aria-required="true">
+        <option value="" disabled selected>Chọn phương thức thanh toán</option>
+        <option value="visa">Visa Debit/Yucho</option>
+        <option value="konbini">Thanh toán tại コンビニ</option>
+        <option value="paypal">Thanh toán qua PayPal</option>
+        <option value="bank">Chuyển khoản ngân hàng</option>
+        <option value="cod">Thanh toán khi nhận hàng</option>
+      </select>
+      <input type="hidden" name="order_details" id="orderDetails" />
+      <button type="submit">Gửi đơn hàng</button>
+    </form>
+  </section>
+
+  <section class="contact" aria-label="Thông tin liên hệ">
+    <h2>Liên hệ</h2>
+    <p>Email: <a href="mailto:khoip777@gmail.com" style="color: var(--primary-color);">khoip777@gmail.com</a></p>
+    <p>Điện thoại (JP): <a href="tel:+817084180868" style="color: var(--primary-color);">070-8418-0868</a></p>
+  </section>
+
+  <footer>
+    &copy; 2025 Khôi PC JP. All rights reserved.
+  </footer>
+
+  <script>
+    const cart = [];
+
+    function addToCart(productName, price) {
+      cart.push({ name: productName, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartDiv = document.getElementById('cart');
+      if (cart.length === 0) {
+        cartDiv.innerHTML = '<h2>Giỏ hàng</h2><p>Chưa có sản phẩm nào.</p>';
+        return;
+      }
+
+      let total = 0;
+      let html = '<h2>Giỏ hàng</h2><ul style="list-style:none; padding-left:0;">';
+      cart.forEach((item) => {
+        html += `<li>${item.name} - ${item.price.toLocaleString()}円</li>`;
+        total += item.price;
+      });
+      html += `</ul><p><strong>Tổng cộng: ${total.toLocaleString()}円</strong></p>`;
+      cartDiv.innerHTML = html;
+
+      const orderDetailsInput = document.getElementById('orderDetails');
+      orderDetailsInput.value = cart.map(item => `${item.name} (${item.price}円)`).join(', ');
+    }
+
+    document.getElementById('toggleModeBtn').addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+    });
+  </script>
+</body>
+</html>
