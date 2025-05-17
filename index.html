@@ -74,6 +74,7 @@
       font-size: 2.5rem;
       margin: 0;
       color: #fff;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
     }
 
     .product-grid {
@@ -92,6 +93,11 @@
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     }
 
     .product img {
@@ -114,7 +120,7 @@
 
     .buy-button {
       background-color: var(--primary-color);
-      color: white
+      color: white;
       padding: 12px 30px;
       border: none;
       border-radius: 30px;
@@ -131,6 +137,20 @@
       box-shadow: 0 6px 20px rgba(255,69,0,0.8);
     }
 
+    #cart {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: var(--card-bg-dark);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: var(--text-light);
+    }
+
+    #cart h2 {
+      margin-top: 0;
+    }
+
     #cart ul {
       padding-left: 0;
       list-style: none;
@@ -138,24 +158,81 @@
 
     #cart li {
       margin-bottom: 10px;
-    }
-
-    .rating {
-      color: gold;
-      margin-top: 8px;
-    }
-
-    .product-controls {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
-      margin-top: 10px;
     }
 
-    .product-controls button {
-      padding: 5px 10px;
-      font-size: 1rem;
+    #cart li button {
+      padding: 5px 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--primary-color);
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    #cart li button:hover {
+      background-color: #e03e00;
+    }
+
+    #cartTotal {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    #contact {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: var(--card-bg-dark);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: var(--text-light);
+    }
+
+    #contact h2 {
+      margin-top: 0;
+    }
+
+    #contact a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    #contact a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--card-bg-dark);
+      color: var(--text-light);
+      font-size: 0.9rem;
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.1);
+      margin-top: 40px;
+    }
+
+    .toggle-mode {
+      background: none;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 5px 12px;
+      font-weight: 700;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .toggle-mode:hover {
+      background-color: var(--primary-color);
+      color: white;
     }
   </style>
 </head>
@@ -181,12 +258,25 @@
       <h3>PC Gaming RTX 3080</h3>
       <p>i7-12700K, 32GB RAM, 1TB SSD</p>
       <p><strong>Giá: 350,000円</strong></p>
-      <div class="rating">
-        ★★★★☆
-      </div>
+      <div class="rating">★★★★☆</div>
       <button class="buy-button" onclick="addToCart('PC Gaming RTX 3080', 350000)">Thêm vào giỏ</button>
     </article>
-    <!-- Thêm sản phẩm khác tương tự -->
+    <article class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Laptop Workstation" />
+      <h3>Laptop Workstation</h3>
+      <p>Ryzen 7, 16GB RAM, 512GB SSD</p>
+      <p><strong>Giá: 180,000円</strong></p>
+      <div class="rating">★★★☆☆</div>
+      <button class="buy-button" onclick="addToCart('Laptop Workstation', 180000)">Thêm vào giỏ</button>
+    </article>
+    <article class="product">
+      <img src="https://via.placeholder.com/300x200" alt="PC Văn phòng" />
+      <h3>PC Văn phòng</h3>
+      <p>i5-10400, 8GB RAM, 256GB SSD</p>
+      <p><strong>Giá: 90,000円</strong></p>
+      <div class="rating">★★★★☆</div>
+      <button class="buy-button" onclick="addToCart('PC Văn phòng', 90000)">Thêm vào giỏ</button>
+    </article>
   </section>
 
   <section id="cart">
@@ -233,10 +323,12 @@
       cart.forEach((item, i) => {
         total += item.price * item.qty;
         cartItems.innerHTML += `<li>
-          ${item.name} - ${item.qty} x ${item.price.toLocaleString()}円
-          <button onclick="changeQty(${i}, 1)">+</button>
-          <button onclick="changeQty(${i}, -1)">-</button>
-          <button onclick="removeItem(${i})">Xóa</button>
+          <span>${item.name} - ${item.qty} x ${item.price.toLocaleString()}円</span>
+          <span>
+            <button onclick="changeQty(${i}, 1)">+</button>
+            <button onclick="changeQty(${i}, -1)">-</button>
+            <button onclick="removeItem(${i})">Xóa</button>
+          </span>
         </li>`;
       });
       cartTotal.textContent = `Tổng: ${total.toLocaleString()}円`;
