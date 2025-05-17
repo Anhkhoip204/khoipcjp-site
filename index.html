@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cửa hàng PC Gaming</title>
   <style>
-    /* CSS cơ bản cho trang */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -203,7 +202,6 @@
     #checkout-btn:hover {
       background-color: #e55b50;
     }
-    /* Scrollbar styles */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
@@ -249,16 +247,16 @@
           image:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/AMD_Ryzen_5_7600X.png/220px-AMD_Ryzen_5_7600X.png",
           description:
-            "CPU AMD Zen4, 6 nhân 12 luồng, hiệu năng cao và tiết kiệm điện.",
+            "PC gaming cấu hình mạnh với CPU AMD Ryzen 5 7600X, RAM 16GB, SSD 512GB, VGA RTX 3060.",
         },
         {
           id: 2,
           name: "PC Gaming Intel Core i7-13700K",
           price: 35000000,
           image:
-            "https://intel-product-images.s3.amazonaws.com/i7-13700k.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Intel_Core_i7_13th_gen_Logo.png/220px-Intel_Core_i7_13th_gen_Logo.png",
           description:
-            "CPU Intel thế hệ 13, 16 nhân, hiệu năng cực mạnh, đa nhiệm tốt.",
+            "PC gaming cấu hình mạnh với CPU Intel Core i7-13700K, RAM 32GB, SSD 1TB, VGA RTX 4070.",
         },
       ],
       cpu: [
@@ -272,11 +270,11 @@
             "CPU AMD Zen4, 6 nhân 12 luồng, hiệu năng cao và tiết kiệm điện.",
         },
         {
-          id: 103,
+          id: 102,
           name: "Intel Core i7-13700K",
-          price: 12000000,
+          price: 9500000,
           image:
-            "https://intel-product-images.s3.amazonaws.com/i7-13700k.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Intel_Core_i7_13th_gen_Logo.png/220px-Intel_Core_i7_13th_gen_Logo.png",
           description:
             "CPU Intel thế hệ 13, 16 nhân, hiệu năng cực mạnh, đa nhiệm tốt.",
         },
@@ -284,225 +282,211 @@
       mainboard: [
         {
           id: 201,
-          name: "Mainboard ASUS ROG Z790",
-          price: 6800000,
+          name: "ASUS ROG Strix B650E-F Gaming WiFi",
+          price: 8500000,
           image:
-            "https://dlcdnimgs.asus.com/websites/global/products/gtdklZtUQeBQYSps/P_setting_xxx_0_90_end_600.png",
-          description: "Mainboard Z790 cho Intel thế hệ 13, hỗ trợ DDR5, PCIe 5.0.",
+            "https://dlcdnwebimgs.asus.com/gain/661A5048-204F-460B-BD22-F9935F8953BB/",
+          description: "Mainboard AMD B650 chipset, hỗ trợ Ryzen Zen4.",
         },
         {
           id: 202,
-          name: "Mainboard MSI B550 Gaming Plus",
-          price: 3500000,
+          name: "MSI Z790 Tomahawk WiFi",
+          price: 8700000,
           image:
-            "https://www.msi.com/public/picture/mb/B550_GAMING_PLUS_400.png",
-          description: "Mainboard B550 cho AMD Ryzen, hỗ trợ PCIe 4.0, RGB.",
+            "https://asset.msi.com/resize/image/global/product/product_1653409363eec4dc0428d64f5979b768b1cf8816c1.png62405d7c2148f.png",
+          description: "Mainboard Intel Z790, hỗ trợ CPU thế hệ 13.",
         },
       ],
       ram: [
         {
           id: 301,
-          name: "Corsair Vengeance 16GB DDR4 3200MHz",
-          price: 1500000,
+          name: "Corsair Vengeance DDR5 16GB (2x8GB) 6000MHz",
+          price: 2700000,
           image:
-            "https://m.media-amazon.com/images/I/81-+Rz6kgdL._AC_SL1500_.jpg",
-          description:
-            "RAM DDR4 dung lượng 16GB, tốc độ 3200MHz, hiệu năng ổn định.",
+            "https://www.corsair.com/medias/sys_master/images/images/h6e/hb7/9223365882526/-vengeance-ddr5-memory-module-hero.png",
+          description: "Ram DDR5 tốc độ cao cho game và đa nhiệm.",
         },
         {
           id: 302,
-          name: "G.Skill Trident Z RGB 32GB DDR4 3600MHz",
-          price: 3200000,
+          name: "G.Skill Trident Z5 RGB DDR5 32GB (2x16GB) 6000MHz",
+          price: 5600000,
           image:
-            "https://gskill.com/media/2020/10/Trident-Z-RGB-32GB-3600MHz.png",
-          description:
-            "RAM DDR4 32GB, bus cao 3600MHz, thiết kế đẹp có đèn RGB.",
+            "https://dlcdnwebimgs.asus.com/gain/9505A45B-44C5-4C6E-9E71-C431E04995B0/",
+          description: "Ram RGB đẹp mắt, hiệu năng cao.",
         },
       ],
       ssd: [
         {
           id: 401,
-          name: "Samsung 970 EVO Plus 1TB",
-          price: 2600000,
+          name: "Samsung 980 Pro 1TB NVMe SSD",
+          price: 3500000,
           image:
-            "https://images.samsung.com/is/image/samsung/p6pim/vn/ssd-970-evo-plus-1tb-mz-v7s1t0b-am-fullview-278368232?$PD_GALLERY_L_JPG$",
-          description:
-            "Ổ cứng SSD M.2 NVMe 1TB tốc độ đọc ghi cao, bền bỉ.",
+            "https://images.samsung.com/is/image/samsung/p6pim/vn/2202/gallery/vn-980-pro-mz-v8p1t0b-530987994?$1300_1038_PNG$",
+          description: "Ổ cứng SSD tốc độ cao, độ bền cao.",
         },
         {
           id: 402,
-          name: "Western Digital Blue 500GB",
-          price: 1100000,
+          name: "Western Digital Black SN850X 1TB",
+          price: 3700000,
           image:
-            "https://shop.westerndigital.com/sites/default/files/blue-500gb.png",
-          description: "SSD SATA 500GB, phù hợp nâng cấp máy tính nhanh.",
+            "https://cdn.wccftech.com/wp-content/uploads/2022/05/WD_BLACK-SN850X.jpg",
+          description: "SSD NVMe hàng đầu cho game thủ.",
         },
       ],
       vga: [
         {
           id: 501,
-          name: "NVIDIA GeForce RTX 3080 TUF",
-          price: 20000000,
+          name: "NVIDIA RTX 3060 Ti",
+          price: 10500000,
           image:
-            "https://dlcdnimgs.asus.com/websites/global/products/CKrjo0bJ3NAKd6m3/P_setting_xxx_0_90_end_600.png",
-          description:
-            "Card màn hình RTX 3080, chơi game 4K mượt mà, hiệu năng cao.",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/NVIDIA_GeForce_RTX_3060_Ti_Founders_Edition.png/220px-NVIDIA_GeForce_RTX_3060_Ti_Founders_Edition.png",
+          description: "Card đồ họa tầm trung, hiệu năng tốt cho game 1080p.",
         },
         {
           id: 502,
-          name: "AMD Radeon RX 6800 XT",
-          price: 17000000,
+          name: "NVIDIA RTX 4070 Ti",
+          price: 20000000,
           image:
-            "https://images.amd.com/sg/media-assets/graphics/desktop-gpus/radeon-rx-6800-xt/6800xt-graphics-card-2.jpg",
-          description:
-            "Card AMD RX 6800 XT, hiệu năng cao, giá tốt cho game thủ.",
+            "https://cdn.mos.cms.futurecdn.net/rDYakWypR2JP3EhJvSxX6X.jpg",
+          description: "Card đồ họa cao cấp, chơi game 2K và 4K tốt.",
         },
       ],
       case: [
         {
           id: 601,
-          name: "Antec C3 ARGB White",
-          price: 1800000,
+          name: "Lian Li PC-O11 Dynamic",
+          price: 3500000,
           image:
-            "https://cdn.tgdd.vn/Products/Images/42/260109/antec-c3-argb-white-1-600x600.jpg",
-          description: "Vỏ case màu trắng, có đèn ARGB, thiết kế đẹp mắt.",
+            "https://assets.lian-li.com/gallery/pc-o11dynamic-07.png",
+          description: "Case đẹp, kính cường lực, bố trí linh hoạt.",
         },
         {
           id: 602,
-          name: "NZXT H510 Black",
+          name: "NZXT H510",
           price: 2500000,
           image:
-            "https://nzxt.com/assets/cms/34245/1638545072-image.jpg?auto=format&fit=max&w=1200",
-          description:
-            "Case NZXT H510, màu đen, thiết kế tối giản, dễ lắp ráp.",
+            "https://nzxt.com/assets/case_h510_01.png",
+          description: "Case phổ biến, thiết kế tối giản, dễ build.",
         },
       ],
       psu: [
         {
           id: 701,
-          name: "Corsair RM750x 750W",
-          price: 2100000,
+          name: "Corsair RM850x 850W 80+ Gold",
+          price: 2700000,
           image:
-            "https://www.corsair.com/corsairmedia/sys_master/productcontent/CFM2_RM750X_black_front.png",
-          description:
-            "Nguồn Corsair 750W, hiệu suất cao, hoạt động ổn định.",
+            "https://www.corsair.com/medias/sys_master/images/images/h01/hb5/9039029336990/-rm850x-hero.png",
+          description: "Nguồn chất lượng, công suất dư dả cho gaming.",
         },
         {
           id: 702,
-          name: "Seasonic Focus GX-650",
-          price: 1900000,
+          name: "Seasonic Focus GX-750 750W 80+ Gold",
+          price: 2300000,
           image:
-            "https://seasonic.com/sites/default/files/product-images/focus-gx-650_0.png",
-          description:
-            "Nguồn Seasonic 650W, hiệu suất 80+ Gold, bền bỉ lâu dài.",
+            "https://seasonic.com/sites/default/files/styles/product_gallery/public/product-images/focus-gx/focus-gx-750-front.png",
+          description: "Nguồn bền bỉ, hiệu suất cao.",
         },
       ],
       cooling: [
         {
           id: 801,
-          name: "Cooler Master Hyper 212",
+          name: "Cooler Master Hyper 212 Black Edition",
           price: 700000,
           image:
-            "https://cdn.coolermaster.com/media/wysiwyg/product_cms/Hyper-212-Black-Edition/Hyper-212-Black-Edition-400x400.png",
-          description:
-            "Tản nhiệt khí hiệu quả, giá hợp lý, lắp dễ dàng.",
+            "https://coolermaster.com/media/catalog/product/cache/1/image/600x600/9df78eab33525d08d6e5fb8d27136e95/h/y/hyper_212_black_edition.png",
+          description: "Tản nhiệt khí hiệu năng tốt, giá hợp lý.",
         },
         {
           id: 802,
-          name: "NZXT Kraken X63",
+          name: "NZXT Kraken X63 RGB",
           price: 3500000,
           image:
-            "https://nzxt.com/assets/cms/34245/kraken-x63_2.png",
-          description:
-            "Tản nhiệt nước All-in-One, hiệu năng làm mát tốt, đẹp mắt.",
+            "https://nzxt.com/assets/cooling_kraken_x63.png",
+          description: "Tản nhiệt nước cao cấp, RGB đẹp mắt.",
         },
       ],
     };
 
-    const productSection = document.getElementById("product-section");
-    const tabs = document.querySelectorAll(".tab");
+    let cart = [];
 
     function formatPrice(price) {
-      return price.toLocaleString("vi-VN") + "₫";
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "₫";
     }
 
-    function showProducts(category) {
+    function renderProducts(category) {
+      const productSection = document.getElementById("product-section");
       productSection.innerHTML = "";
-      const products = productsData[category];
-      if (!products) return;
-
+      const prods = productsData[category];
+      if (!prods) {
+        productSection.innerHTML = "<p>Không có sản phẩm.</p>";
+        return;
+      }
       const container = document.createElement("div");
       container.className = "products";
 
-      products.forEach((p) => {
-        const prodDiv = document.createElement("div");
-        prodDiv.className = "product";
+      prods.forEach((p) => {
+        const product = document.createElement("div");
+        product.className = "product";
 
-        prodDiv.innerHTML = `
+        product.innerHTML = `
           <img src="${p.image}" alt="${p.name}" />
-          <h3>${p.name}</h3>
-          <p class="description">${p.description}</p>
-          <p class="price">${formatPrice(p.price)}</p>
-          <button onclick="addToCart(${p.id}, '${category}')">
-            Thêm vào giỏ
-          </button>
+          <h3 title="${p.name}">${p.name}</h3>
+          <div class="description">${p.description}</div>
+          <div class="price">${formatPrice(p.price)}</div>
+          <button onclick="addToCart(${p.id}, '${category}')">Thêm vào giỏ</button>
         `;
-        container.appendChild(prodDiv);
+        container.appendChild(product);
       });
 
       productSection.appendChild(container);
     }
 
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        tabs.forEach((t) => t.classList.remove("active"));
-        tab.classList.add("active");
-        showProducts(tab.getAttribute("data-category"));
-      });
-    });
-
-    showProducts("pc");
-
-    let cart = [];
-
-    function addToCart(id, category) {
-      const product = productsData[category].find((p) => p.id === id);
+    function addToCart(productId, category) {
+      const product = productsData[category].find((p) => p.id === productId);
       if (!product) return;
-      const cartItem = cart.find((item) => item.id === id && item.category === category);
-      if (cartItem) {
-        cartItem.quantity++;
+
+      const existingItem = cart.find(
+        (item) => item.id === productId && item.category === category
+      );
+      if (existingItem) {
+        existingItem.quantity++;
       } else {
         cart.push({ ...product, category, quantity: 1 });
       }
       renderCart();
     }
 
-    function renderCart() {
-      const cartItemsContainer = document.getElementById("cart-items");
-      cartItemsContainer.innerHTML = "";
-      let total = 0;
+    function removeFromCart(productId, category) {
+      cart = cart.filter(
+        (item) => !(item.id === productId && item.category === category)
+      );
+      renderCart();
+    }
 
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = "<p>Giỏ hàng trống</p>";
+    function changeQuantity(productId, category, delta) {
+      const item = cart.find(
+        (item) => item.id === productId && item.category === category
+      );
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity < 1) {
+        removeFromCart(productId, category);
+      } else {
+        renderCart();
       }
+    }
 
-      cart.forEach((item, index) => {
-        total += item.price * item.quantity;
-
-        const itemDiv = document.createElement("div");
-        itemDiv.className = "cart-item";
-        itemDiv.innerHTML = `
+    function renderCart() {
+      const cartItems = document.getElementById("cart-items");
+      cartItems.innerHTML = "";
+      if (cart.length === 0) {
+        cartItems.innerHTML = "<p>Giỏ hàng trống</p>";
+        document.getElementById("total").textContent = "Tổng: 0₫";
+        return;
+      }
+      cart.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
           <div class="cart-item-info">
-            <img src="${item.image}" alt="${item.name}" />
-            <div class="cart-item-details">
-              <strong>${item.name}</strong>
-              <small>${formatPrice(item.price)} x ${item.quantity}</small>
-            </div>
-          </div>
-          <div class="cart-item-controls">
-            <button onclick="decreaseQty(${index})">-</button>
-            <button onclick="increaseQty(${index})">+</button>
-            <button onclick="removeFromCart(${index})">Xóa</button>
-          </div>
-        `;
-        cartItemsContainer.appendChild(itemDiv
+            <img
