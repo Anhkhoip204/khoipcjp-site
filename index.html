@@ -1,492 +1,410 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cửa hàng PC Gaming</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #121212;
-      color: #eee;
-      display: flex;
-      flex-direction: row;
-      height: 100vh;
-      overflow: hidden;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Khôi Computer - PC & Linh kiện Gaming</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#121212;
+    color:#eee;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  a{
+    color:#ff5722;
+    text-decoration:none;
+  }
+  a:hover{text-decoration:underline;}
+  header{
+    background:#1f1f1f;
+    padding:1rem 2rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:999;
+    box-shadow:0 2px 5px rgba(0,0,0,0.7);
+  }
+  header .logo{
+    font-size:1.8rem;
+    font-weight:700;
+    color:#ff5722;
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+  }
+  nav a{
+    font-weight:600;
+    padding:0.4rem 0.8rem;
+    border-radius:5px;
+    transition:background-color 0.3s;
+  }
+  nav a:hover{
+    background:#ff5722;
+    color:#fff;
+  }
+  .search-bar{
+    position:relative;
+  }
+  .search-bar input[type="text"]{
+    padding:0.5rem 2.5rem 0.5rem 1rem;
+    border-radius:20px;
+    border:none;
+    outline:none;
+    width:220px;
+    transition:width 0.3s ease;
+  }
+  .search-bar input[type="text"]:focus{
+    width:280px;
+  }
+  .search-bar button{
+    position:absolute;
+    right:6px;
+    top:50%;
+    transform:translateY(-50%);
+    background:transparent;
+    border:none;
+    color:#ff5722;
+    font-size:1.2rem;
+    cursor:pointer;
+  }
+  main{
+    flex:1;
+    padding:1.5rem 2rem;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .banner{
+    background:url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1400&q=80') no-repeat center/cover;
+    border-radius:12px;
+    height:220px;
+    margin-bottom:2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    text-shadow:1px 1px 7px rgba(0,0,0,0.8);
+    font-size:2rem;
+    font-weight:700;
+  }
+  .filters{
+    display:flex;
+    gap:1rem;
+    margin-bottom:1.8rem;
+    flex-wrap:wrap;
+  }
+  .filter-group{
+    background:#1f1f1f;
+    padding:0.8rem 1rem;
+    border-radius:10px;
+    color:#ccc;
+    flex:1;
+    min-width:150px;
+  }
+  .filter-group label{
+    display:block;
+    margin-bottom:0.4rem;
+    font-weight:600;
+  }
+  .filter-group select{
+    width:100%;
+    padding:0.4rem 0.6rem;
+    border-radius:6px;
+    border:none;
+    outline:none;
+    font-size:1rem;
+  }
+  .product-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:1.4rem;
+  }
+  .product-card{
+    background:#1f1f1f;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 3px 8px rgba(255,87,34,0.2);
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .product-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 8px 20px rgba(255,87,34,0.5);
+  }
+  .product-card img{
+    width:100%;
+    height:160px;
+    object-fit:contain;
+    background:#000;
+  }
+  .product-info{
+    padding:1rem;
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+  }
+  .product-info h3{
+    font-size:1.1rem;
+    color:#ff5722;
+    margin-bottom:0.5rem;
+    flex-grow:1;
+  }
+  .product-info p.price{
+    font-size:1rem;
+    font-weight:700;
+    margin-bottom:1rem;
+    color:#fff;
+  }
+  .product-info button{
+    background:#ff5722;
+    border:none;
+    border-radius:25px;
+    padding:0.6rem;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:background-color 0.3s;
+  }
+  .product-info button:hover{
+    background:#e64a19;
+  }
+  #cart{
+    position:fixed;
+    right:0;
+    top:0;
+    width:320px;
+    height:100vh;
+    background:#222;
+    box-shadow:-3px 0 10px rgba(0,0,0,0.8);
+    padding:1rem 1.2rem;
+    overflow-y:auto;
+    z-index:1000;
+    display:flex;
+    flex-direction:column;
+  }
+  #cart h2{
+    color:#ff5722;
+    font-weight:700;
+    margin-bottom:1rem;
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+  }
+  #cart-items{
+    flex-grow:1;
+    overflow-y:auto;
+  }
+  .cart-item{
+    background:#1f1f1f;
+    margin-bottom:1rem;
+    padding:0.8rem;
+    border-radius:10px;
+    display:flex;
+    gap:1rem;
+    align-items:center;
+  }
+  .cart-item img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+    border-radius:8px;
+    background:#000;
+  }
+  .cart-item-details{
+    flex-grow:1;
+  }
+  .cart-item-details strong{
+    display:block;
+    margin-bottom:0.2rem;
+    color:#ff5722;
+  }
+  .cart-item-details small{
+    color:#ccc;
+    font-size:0.85rem;
+  }
+  .cart-controls{
+    display:flex;
+    flex-direction:column;
+    gap:0.3rem;
+  }
+  .cart-controls button{
+    background:#ff5722;
+    border:none;
+    color:white;
+    font-weight:700;
+    border-radius:6px;
+    padding:0.2rem 0.6rem;
+    cursor:pointer;
+    transition:background-color 0.3s;
+  }
+  .cart-controls button:hover{
+    background:#e64a19;
+  }
+  #cart-total{
+    font-weight:700;
+    font-size:1.2rem;
+    color:#fff;
+    margin-top:1rem;
+    border-top:1px solid #444;
+    padding-top:1rem;
+  }
+  #checkout-btn{
+    margin-top:1rem;
+    background:#4caf50;
+    border:none;
+    width:100%;
+    padding:0.75rem;
+    font-size:1.1rem;
+    color:white;
+    border-radius:12px;
+    font-weight:700;
+    cursor:pointer;
+    transition:background-color 0.3s;
+  }
+  #checkout-btn:hover{
+    background:#388e3c;
+  }
+  footer{
+    background:#1f1f1f;
+    text-align:center;
+    padding:1rem 2rem;
+    margin-top:auto;
+    color:#aaa;
+    font-size:0.9rem;
+  }
+  @media(max-width:992px){
+    #cart{
+      width:280px;
     }
-    .sidebar {
-      width: 280px;
-      background-color: #1e1e1e;
-      padding: 10px;
-      box-sizing: border-box;
-      overflow-y: auto;
-      border-right: 1px solid #333;
+    main{
+      padding:1rem 1.2rem;
     }
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
+  }
+  @media(max-width:768px){
+    header{
+      flex-direction:column;
+      gap:0.8rem;
+      align-items:flex-start;
     }
-    .tab {
-      background-color: #2a2a2a;
-      padding: 8px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      user-select: none;
-      color: #ccc;
-      transition: background-color 0.3s, color 0.3s;
+    nav{
+      flex-wrap:wrap;
+      gap:1rem;
+      width:100%;
     }
-    .tab.active {
-      background-color: #ff6f61;
-      color: #fff;
+    .search-bar input[type="text"]{
+      width:100%;
     }
-    #product-section {
-      flex-grow: 1;
-      padding: 15px;
-      overflow-y: auto;
-      background-color: #181818;
+    #cart{
+      position:fixed;
+      bottom:0;
+      right:0;
+      width:100%;
+      height:40vh;
+      max-height:320px;
+      border-radius:12px 12px 0 0;
+      padding:1rem;
+      box-shadow:0 -3px 10px rgba(0,0,0,0.8);
     }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-      gap: 20px;
+    main{
+      padding-bottom:50vh;
     }
-    .product {
-      background-color: #252525;
-      border-radius: 8px;
-      padding: 12px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s;
-    }
-    .product:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(255,111,97,0.4);
-    }
-    .product img {
-      width: 100%;
-      height: 130px;
-      object-fit: contain;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      background-color: #111;
-    }
-    .product h3 {
-      margin: 0 0 6px 0;
-      font-size: 1.1rem;
-      color: #fff;
-    }
-    .product .description {
-      font-size: 0.85rem;
-      color: #aaa;
-      flex-grow: 1;
-      margin-bottom: 10px;
-    }
-    .product .price {
-      font-weight: bold;
-      color: #ff6f61;
-      margin-bottom: 10px;
-      font-size: 1rem;
-    }
-    .product button {
-      background-color: #ff6f61;
-      border: none;
-      color: #fff;
-      padding: 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .product button:hover {
-      background-color: #e55b50;
-    }
-    .cart {
-      width: 300px;
-      background-color: #1e1e1e;
-      border-left: 1px solid #333;
-      padding: 15px;
-      box-sizing: border-box;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-    .cart h2 {
-      margin: 0 0 15px 0;
-      font-size: 1.3rem;
-      color: #ff6f61;
-      text-align: center;
-    }
-    #cart-items {
-      flex-grow: 1;
-      overflow-y: auto;
-    }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #252525;
-      margin-bottom: 12px;
-      padding: 8px;
-      border-radius: 6px;
-    }
-    .cart-item-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-grow: 1;
-      overflow: hidden;
-    }
-    .cart-item-info img {
-      width: 60px;
-      height: 40px;
-      object-fit: contain;
-      border-radius: 4px;
-      background-color: #111;
-    }
-    .cart-item-details {
-      flex-grow: 1;
-      overflow: hidden;
-    }
-    .cart-item-details strong {
-      display: block;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .cart-item-details small {
-      color: #aaa;
-      font-size: 0.8rem;
-    }
-    .cart-item-controls {
-      display: flex;
-      gap: 5px;
-    }
-    .cart-item-controls button {
-      background-color: #ff6f61;
-      border: none;
-      color: white;
-      padding: 5px 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.9rem;
-      transition: background-color 0.3s;
-    }
-    .cart-item-controls button:hover {
-      background-color: #e55b50;
-    }
-    #total {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin: 15px 0;
-      color: #ff6f61;
-      text-align: center;
-    }
-    #checkout-btn {
-      background-color: #ff6f61;
-      border: none;
-      color: white;
-      font-weight: bold;
-      font-size: 1.1rem;
-      padding: 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    #checkout-btn:hover {
-      background-color: #e55b50;
-    }
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #1e1e1e;
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: #ff6f61;
-      border-radius: 10px;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="sidebar">
-    <div class="tabs">
-      <div class="tab active" data-category="pc">PC Hoàn Chỉnh</div>
-      <div class="tab" data-category="cpu">CPU</div>
-      <div class="tab" data-category="mainboard">Mainboard</div>
-      <div class="tab" data-category="ram">RAM</div>
-      <div class="tab" data-category="ssd">SSD</div>
-      <div class="tab" data-category="vga">VGA</div>
-      <div class="tab" data-category="case">Case</div>
-      <div class="tab" data-category="psu">PSU</div>
-      <div class="tab" data-category="cooling">Tản Nhiệt</div>
+<header>
+  <div class="logo">Khôi Computer</div>
+  <nav>
+    <a href="#home" onclick="scrollToSection('home')">Trang chủ</a>
+    <a href="#products" onclick="scrollToSection('products')">Sản phẩm</a>
+    <a href="#contact" onclick="scrollToSection('contact')">Liên hệ</a>
+  </nav>
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." oninput="filterProducts()" />
+    <button onclick="filterProducts()">🔍</button>
+  </div>
+</header>
+<main>
+  <section class="banner" id="home">PC Gaming & Linh Kiện Cao Cấp</section>
+
+  <section class="filters">
+    <div class="filter-group">
+      <label for="filter-category">Loại linh kiện</label>
+      <select id="filter-category" onchange="filterProducts()">
+        <option value="all">Tất cả</option>
+        <option value="cpu">CPU</option>
+        <option value="mainboard">Mainboard</option>
+        <option value="ram">RAM</option>
+        <option value="vga">VGA</option>
+        <option value="case">Case</option>
+        <option value="psu">Nguồn (PSU)</option>
+        <option value="ssd">Ổ cứng SSD</option>
+      </select>
     </div>
-    <div id="product-section"></div>
-  </div>
-  <div class="cart">
-    <h2>Giỏ hàng</h2>
-    <div id="cart-items"><p>Giỏ hàng trống</p></div>
-    <div id="total">Tổng: 0₫</div>
-    <button id="checkout-btn" onclick="checkout()">Thanh toán</button>
-  </div>
+    <div class="filter-group">
+      <label for="filter-brand">Hãng</label>
+      <select id="filter-brand" onchange="filterProducts()">
+        <option value="all">Tất cả</option>
+        <option value="intel">Intel</option>
+        <option value="amd">AMD</option>
+        <option value="asus">ASUS</option>
+        <option value="msi">MSI</option>
+        <option value="gigabyte">Gigabyte</option>
+        <option value="corsair">Corsair</option>
+        <option value="asus-case">ASUS (Case)</option>
+        <option value="antec">Antec</option>
+        <option value="cooler-master">Cooler Master</option>
+        <option value="seasonic">Seasonic</option>
+        <option value="samsung">Samsung</option>
+      </select>
+    </div>
+  </section>
 
-  <script>
-    const productsData = {
-      pc: [
-        {
-          id: 1,
-          name: "PC Gaming ROG Ryzen 5 7600X",
-          price: 29000000,
-          image:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/AMD_Ryzen_5_7600X.png/220px-AMD_Ryzen_5_7600X.png",
-          description:
-            "PC gaming cấu hình mạnh với CPU AMD Ryzen 5 7600X, RAM 16GB, SSD 512GB, VGA RTX 3060.",
-        },
-        {
-          id: 2,
-          name: "PC Gaming Intel Core i7-13700K",
-          price: 35000000,
-          image:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Intel_Core_i7_13th_gen_Logo.png/220px-Intel_Core_i7_13th_gen_Logo.png",
-          description:
-            "PC gaming cấu hình mạnh với CPU Intel Core i7-13700K, RAM 32GB, SSD 1TB, VGA RTX 4070.",
-        },
-      ],
-      cpu: [
-        {
-          id: 101,
-          name: "AMD Ryzen 5 7600X",
-          price: 7500000,
-          image:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/AMD_Ryzen_5_7600X.png/220px-AMD_Ryzen_5_7600X.png",
-          description:
-            "CPU AMD Zen4, 6 nhân 12 luồng, hiệu năng cao và tiết kiệm điện.",
-        },
-        {
-          id: 102,
-          name: "Intel Core i7-13700K",
-          price: 9500000,
-          image:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Intel_Core_i7_13th_gen_Logo.png/220px-Intel_Core_i7_13th_gen_Logo.png",
-          description:
-            "CPU Intel thế hệ 13, 16 nhân, hiệu năng cực mạnh, đa nhiệm tốt.",
-        },
-      ],
-      mainboard: [
-        {
-          id: 201,
-          name: "ASUS ROG Strix B650E-F Gaming WiFi",
-          price: 8500000,
-          image:
-            "https://dlcdnwebimgs.asus.com/gain/661A5048-204F-460B-BD22-F9935F8953BB/",
-          description: "Mainboard AMD B650 chipset, hỗ trợ Ryzen Zen4.",
-        },
-        {
-          id: 202,
-          name: "MSI Z790 Tomahawk WiFi",
-          price: 8700000,
-          image:
-            "https://asset.msi.com/resize/image/global/product/product_1653409363eec4dc0428d64f5979b768b1cf8816c1.png62405d7c2148f.png",
-          description: "Mainboard Intel Z790, hỗ trợ CPU thế hệ 13.",
-        },
-      ],
-      ram: [
-        {
-          id: 301,
-          name: "Corsair Vengeance DDR5 16GB (2x8GB) 6000MHz",
-          price: 2700000,
-          image:
-            "https://www.corsair.com/medias/sys_master/images/images/h6e/hb7/9223365882526/-vengeance-ddr5-memory-module-hero.png",
-          description: "Ram DDR5 tốc độ cao cho game và đa nhiệm.",
-        },
-        {
-          id: 302,
-          name: "G.Skill Trident Z5 RGB DDR5 32GB (2x16GB) 6000MHz",
-          price: 5600000,
-          image:
-            "https://dlcdnwebimgs.asus.com/gain/9505A45B-44C5-4C6E-9E71-C431E04995B0/",
-          description: "Ram RGB đẹp mắt, hiệu năng cao.",
-        },
-      ],
-      ssd: [
-        {
-          id: 401,
-          name: "Samsung 980 Pro 1TB NVMe SSD",
-          price: 3500000,
-          image:
-            "https://images.samsung.com/is/image/samsung/p6pim/vn/2202/gallery/vn-980-pro-mz-v8p1t0b-530987994?$1300_1038_PNG$",
-          description: "Ổ cứng SSD tốc độ cao, độ bền cao.",
-        },
-        {
-          id: 402,
-          name: "Western Digital Black SN850X 1TB",
-          price: 3700000,
-          image:
-            "https://cdn.wccftech.com/wp-content/uploads/2022/05/WD_BLACK-SN850X.jpg",
-          description: "SSD NVMe hàng đầu cho game thủ.",
-        },
-      ],
-      vga: [
-        {
-          id: 501,
-          name: "NVIDIA RTX 3060 Ti",
-          price: 10500000,
-          image:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/NVIDIA_GeForce_RTX_3060_Ti_Founders_Edition.png/220px-NVIDIA_GeForce_RTX_3060_Ti_Founders_Edition.png",
-          description: "Card đồ họa tầm trung, hiệu năng tốt cho game 1080p.",
-        },
-        {
-          id: 502,
-          name: "NVIDIA RTX 4070 Ti",
-          price: 20000000,
-          image:
-            "https://cdn.mos.cms.futurecdn.net/rDYakWypR2JP3EhJvSxX6X.jpg",
-          description: "Card đồ họa cao cấp, chơi game 2K và 4K tốt.",
-        },
-      ],
-      case: [
-        {
-          id: 601,
-          name: "Lian Li PC-O11 Dynamic",
-          price: 3500000,
-          image:
-            "https://assets.lian-li.com/gallery/pc-o11dynamic-07.png",
-          description: "Case đẹp, kính cường lực, bố trí linh hoạt.",
-        },
-        {
-          id: 602,
-          name: "NZXT H510",
-          price: 2500000,
-          image:
-            "https://nzxt.com/assets/case_h510_01.png",
-          description: "Case phổ biến, thiết kế tối giản, dễ build.",
-        },
-      ],
-      psu: [
-        {
-          id: 701,
-          name: "Corsair RM850x 850W 80+ Gold",
-          price: 2700000,
-          image:
-            "https://www.corsair.com/medias/sys_master/images/images/h01/hb5/9039029336990/-rm850x-hero.png",
-          description: "Nguồn chất lượng, công suất dư dả cho gaming.",
-        },
-        {
-          id: 702,
-          name: "Seasonic Focus GX-750 750W 80+ Gold",
-          price: 2300000,
-          image:
-            "https://seasonic.com/sites/default/files/styles/product_gallery/public/product-images/focus-gx/focus-gx-750-front.png",
-          description: "Nguồn bền bỉ, hiệu suất cao.",
-        },
-      ],
-      cooling: [
-        {
-          id: 801,
-          name: "Cooler Master Hyper 212 Black Edition",
-          price: 700000,
-          image:
-            "https://coolermaster.com/media/catalog/product/cache/1/image/600x600/9df78eab33525d08d6e5fb8d27136e95/h/y/hyper_212_black_edition.png",
-          description: "Tản nhiệt khí hiệu năng tốt, giá hợp lý.",
-        },
-        {
-          id: 802,
-          name: "NZXT Kraken X63 RGB",
-          price: 3500000,
-          image:
-            "https://nzxt.com/assets/cooling_kraken_x63.png",
-          description: "Tản nhiệt nước cao cấp, RGB đẹp mắt.",
-        },
-      ],
-    };
+  <section id="products" class="product-list">
+    <!-- Products will be inserted by JS -->
+  </section>
 
-    let cart = [];
+  <section id="contact" style="margin-top:3rem; padding:1rem; background:#1f1f1f; border-radius:12px; color:#ccc;">
+    <h2>Liên hệ</h2>
+    <p>Email: khoicomputer@gmail.com</p>
+    <p>Điện thoại: 0123 456 789</p>
+    <p>Địa chỉ: 123 Đường Công Nghệ, Hà Nội, Việt Nam</p>
+  </section>
+</main>
 
-    function formatPrice(price) {
-      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "₫";
-    }
+<div id="cart">
+  <h2>Giỏ hàng 🛒</h2>
+  <div id="cart-items"></div>
+  <div id="cart-total">Tổng: 0₫</div>
+  <button id="checkout-btn" onclick="checkout()">Thanh toán</button>
+</div>
 
-    function renderProducts(category) {
-      const productSection = document.getElementById("product-section");
-      productSection.innerHTML = "";
-      const prods = productsData[category];
-      if (!prods) {
-        productSection.innerHTML = "<p>Không có sản phẩm.</p>";
-        return;
-      }
-      const container = document.createElement("div");
-      container.className = "products";
+<footer>
+  &copy; 2025 Khôi Computer. All rights reserved.
+</footer>
 
-      prods.forEach((p) => {
-        const product = document.createElement("div");
-        product.className = "product";
-
-        product.innerHTML = `
-          <img src="${p.image}" alt="${p.name}" />
-          <h3 title="${p.name}">${p.name}</h3>
-          <div class="description">${p.description}</div>
-          <div class="price">${formatPrice(p.price)}</div>
-          <button onclick="addToCart(${p.id}, '${category}')">Thêm vào giỏ</button>
-        `;
-        container.appendChild(product);
-      });
-
-      productSection.appendChild(container);
-    }
-
-    function addToCart(productId, category) {
-      const product = productsData[category].find((p) => p.id === productId);
-      if (!product) return;
-
-      const existingItem = cart.find(
-        (item) => item.id === productId && item.category === category
-      );
-      if (existingItem) {
-        existingItem.quantity++;
-      } else {
-        cart.push({ ...product, category, quantity: 1 });
-      }
-      renderCart();
-    }
-
-    function removeFromCart(productId, category) {
-      cart = cart.filter(
-        (item) => !(item.id === productId && item.category === category)
-      );
-      renderCart();
-    }
-
-    function changeQuantity(productId, category, delta) {
-      const item = cart.find(
-        (item) => item.id === productId && item.category === category
-      );
-      if (!item) return;
-      item.quantity += delta;
-      if (item.quantity < 1) {
-        removeFromCart(productId, category);
-      } else {
-        renderCart();
-      }
-    }
-
-    function renderCart() {
-      const cartItems = document.getElementById("cart-items");
-      cartItems.innerHTML = "";
-      if (cart.length === 0) {
-        cartItems.innerHTML = "<p>Giỏ hàng trống</p>";
-        document.getElementById("total").textContent = "Tổng: 0₫";
-        return;
-      }
-      cart.forEach((item) => {
-        const div = document.createElement("div");
-        div.className = "cart-item";
-        div.innerHTML = `
-          <div class="cart-item-info">
-            <img
+<script>
+  // Dữ liệu sản phẩm
+  const products = [
+    // CPU Intel
+    {id:1,name:"Intel Core i9-13900K",category:"cpu",brand:"intel",price:13900000,img:"https://cdn.tgdd.vn/Products/Images/42/261029/intel-core-i9-13900k-1-400x460.png"},
+    {id:2,name:"Intel Core i7-13700K",category:"cpu",brand:"intel",price:8000000,img:"https://cdn.tgdd.vn/Products/Images/42/264011/intel-core-i7-13700k-400x460.png"},
+    // CPU AMD
+    {id:3,name:"AMD Ryzen 9 7950X",category:"cpu",brand:"amd",price:16000000,img:"https://cdn.tgdd.vn/Products/Images/42/289680/amd-ryzen-9-7950x-400x460.png"},
+    {id:4,name:"AMD Ryzen 7 7700X",category:"cpu",brand:"amd",price:8000000,img:"https://cdn.tgdd.vn/Products/Images/42/289684/amd-ryzen-7-7700x-400x460.png"},
+    // Mainboard
+    {id:5,name:"ASUS ROG STRIX Z790-E",category:"mainboard",brand:"asus",price:9000000,img:"https://dlcdnwebimgs.asus.com/gain/4306D25C-A96B-491B-8E2B-8723B5D8DE43"},
+    {id:6,name:"MSI MAG B650 TOMAHAWK",category:"mainboard",brand:"msi",price:6500000,img:"https://asset.msi.com/resize/image/global/product/product_1659571787889.jpg62405e2370292.jpg"},
+    // RAM
+    {id:7,name:"Corsair Vengeance LPX 16GB DDR4",category:"ram",brand:"corsair",price:1500000,img:"https://www.corsair.com/medias/sys_master/images/images/h3a/h27/8816873525406/-CMK16GX4M2B3200C16-hero.png"},
+    {id:8,name:"G.SKILL Trident Z5 32GB DDR5",category:"ram",brand:"msi",price:4500000,img:"https://dlcdnwebimgs.asus.com/gain/1B5C098A-8BD2-45F0-86BD-8D3EF62CCDD2"},
+    // VGA
+    {id:9,name:"ASUS ROG Strix RTX 308
