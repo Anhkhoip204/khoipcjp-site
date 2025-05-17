@@ -3,36 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cửa Hàng PC - Khôi Computer</title>
+  <title>Khôi Computer - Chuyên PC Gaming & Văn Phòng</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      padding: 0;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url('https://images.unsplash.com/photo-1587202372775-98973a798f92?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
       background-size: cover;
-      color: white;
+      color: #fff;
+      padding-right: 320px;
     }
     header {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 1rem 2rem;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1.5rem 2rem;
       text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
     header h1 {
-      margin: 0;
-      font-size: 2rem;
+      font-size: 2.5rem;
+      color: #ff5722;
     }
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
       padding: 2rem;
     }
     .product {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
       padding: 1rem;
       text-align: center;
-      backdrop-filter: blur(5px);
+      transition: transform 0.3s;
+    }
+    .product:hover {
+      transform: scale(1.03);
     }
     .product img {
       width: 100%;
@@ -42,18 +52,25 @@
     }
     .product h3 {
       margin: 0.5rem 0;
+      color: #ffcccb;
+    }
+    .product p {
+      margin-bottom: 0.5rem;
     }
     .product button {
-      margin-top: 0.5rem;
       padding: 0.5rem 1rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 20px;
       background-color: #ff5722;
       color: white;
       cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .product button:hover {
+      background-color: #e64a19;
     }
     #cart {
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.9);
       padding: 1rem;
       position: fixed;
       right: 0;
@@ -62,52 +79,52 @@
       height: 100vh;
       overflow-y: auto;
       color: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.7);
     }
     #cart h2 {
       margin-top: 0;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.5rem;
     }
     .cart-item {
       margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed #888;
     }
     .cart-item button {
       margin-top: 0.3rem;
-      background-color: red;
+      background-color: #d32f2f;
+      border: none;
+      padding: 4px 10px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cart-item button:hover {
+      background-color: #b71c1c;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Khôi Computer - Cửa Hàng PC Build</h1>
+    <h1>Khôi Computer - Chuyên PC Gaming & Văn Phòng</h1>
   </header>
 
   <div class="products" id="product-list"></div>
 
   <div id="cart">
-    <h2>Giỏ Hàng</h2>
+    <h2>🛒 Giỏ Hàng</h2>
     <div id="cart-items"></div>
     <h3 id="total">Tổng: 0₫</h3>
   </div>
 
   <script>
     const products = [
-      {
-        id: 1,
-        name: "PC Gaming i5-14600KF + RTX 3080",
-        price: 35000000,
-        image: "https://product.hstatic.net/200000722513/product/pc-gaming-scout-mb-df800__1__d273f2b3dc5e4b5fa9246cf9b34b7fe2_1024x1024.jpg"
-      },
-      {
-        id: 2,
-        name: "PC Văn Phòng Ryzen 5 5600G",
-        price: 12000000,
-        image: "https://product.hstatic.net/200000722513/product/ryzen-office-1_3ba5d9f3d108471f9bb7dcf66738f830_1024x1024.jpg"
-      },
-      {
-        id: 3,
-        name: "PC Streamer Intel i7 + RTX 4070",
-        price: 45000000,
-        image: "https://product.hstatic.net/200000722513/product/pc-gaming-streamer-anphat_9d1db98e0e914abc86d118c69a370383_1024x1024.jpg"
-      }
+      { id: 1, name: "PC Gaming i5-14600KF + RTX 3080", price: 35000000, image: "https://product.hstatic.net/200000722513/product/pc-gaming-scout-mb-df800__1__d273f2b3dc5e4b5fa9246cf9b34b7fe2_1024x1024.jpg" },
+      { id: 2, name: "PC Văn Phòng Ryzen 5 5600G", price: 12000000, image: "https://product.hstatic.net/200000722513/product/ryzen-office-1_3ba5d9f3d108471f9bb7dcf66738f830_1024x1024.jpg" },
+      { id: 3, name: "PC Streamer Intel i7 + RTX 4070", price: 45000000, image: "https://product.hstatic.net/200000722513/product/pc-gaming-streamer-anphat_9d1db98e0e914abc86d118c69a370383_1024x1024.jpg" },
+      { id: 4, name: "PC Học Tập i3 Gen 12", price: 9000000, image: "https://product.hstatic.net/200000722513/product/pc-student-basic_5fd08d2371f049a1945d053a46d44c6e_1024x1024.jpg" },
+      { id: 5, name: "PC Đồ Họa Intel Xeon + Quadro", price: 28000000, image: "https://product.hstatic.net/200000722513/product/pc-design-quadro_2b623ff47b2f42ed81c51e5aacc3b2e6_1024x1024.jpg" }
     ];
 
     const cart = [];
